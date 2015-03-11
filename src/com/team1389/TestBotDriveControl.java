@@ -198,13 +198,17 @@ public class TestBotDriveControl extends GenericDriver{
 	 * Drive train Autonomous setup
 	 */
 	@Override
-	public void autonConfig(){}
+	public void autonConfig(){
+		super.autonConfig();
+	}
 
 	/**
 	* Instructions for drive train at each autonomous tick. 
 	*/
 	@Override
-	public void autonTick(){}
+	public void autonTick(){
+		super.autonTick();
+	}
 	@Override	
 	public void test(){
 

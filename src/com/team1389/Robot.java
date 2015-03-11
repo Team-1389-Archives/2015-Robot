@@ -2,8 +2,6 @@ package com.team1389;
 
 import java.util.ArrayList;
 
-import com.team1389.auton.AutonDriveControl;
-
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -61,7 +59,6 @@ public class Robot extends SampleRobot {
 	
 	private void setupComponents(){
 		components.add(driveControl);
-		components.add(new AutonDriveControl());
 		//components.add(new ElevatorControl());
 		//components.add(new CrapElevator());
 		//components.add(new PosTrack());

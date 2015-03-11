@@ -12,7 +12,7 @@ public class DriveStraight extends PIDSubsystem{
 	
 	private double speed;
 	private IMU imu;
-	DriveStraight(IMU imu, double speed){
+	public DriveStraight(IMU imu, double speed){
 		super(.02, 0, 0);
 		this.speed = speed;
 		this.imu=imu;
