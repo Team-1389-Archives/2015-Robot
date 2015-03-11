@@ -1,6 +1,7 @@
 package com.team1389;
 
 import com.kauailabs.nav6.frc.IMU;
+import com.kauailabs.navx_mxp.AHRS;
 
 import edu.wpi.first.wpilibj.AnalogAccelerometer;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
@@ -28,7 +29,7 @@ public class InputState implements Cloneable{
     
 
 	public Gyro gyro;
-	public IMU imu;
+	public AHRS imu;
 	public SerialPort serial_port;
 
 	public Timer time;
@@ -50,7 +51,7 @@ public class InputState implements Cloneable{
 */
 		
 		serial_port = new SerialPort(57600, SerialPort.Port.kMXP);
-		imu=new IMU(serial_port);
+		imu= new AHRS(serial_port);
 		time = new Timer();
 		time.start();
 		

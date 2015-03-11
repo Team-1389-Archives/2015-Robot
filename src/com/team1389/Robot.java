@@ -29,6 +29,7 @@ public class Robot extends SampleRobot {
 	public static InputState state;
 	final static int DRIVE=1,ELEVATOR=0,POS=2;
 	public static GenericDriver driveControl;
+
 	
 	public CameraServer server;
 	
@@ -79,7 +80,7 @@ public class Robot extends SampleRobot {
 			
 			c.teleopConfig();
 		}
-		while (isOperatorControl())
+		while (isOperatorControl() && isEnabled())
 		{
 			state.tick();
 			
@@ -99,13 +100,17 @@ public class Robot extends SampleRobot {
 			
 			c.autonConfig();
 		}
-		while (isOperatorControl())
+		while (isAutonomous() && isEnabled())
 		{
 			state.tick();
 			
 			for (Component c: components){
 				c.autonTick();
 			}
+		}
+		
+		for (Component c : components){
+			c.onAutonDisable();
 		}
 
 	}
@@ -124,8 +129,6 @@ public class Robot extends SampleRobot {
 	
 	@Override
 	protected void disabled() {
-		for (Component c : components){
-			c.onDisable();
-		}
+		
 	}
 }

@@ -29,7 +29,7 @@ public class Component implements phaseMethods{
 	}
 
 	@Override
-	public void onDisable() {
+	public void onAutonDisable() {
 		// TODO Auto-generated method stub
 		
 	}

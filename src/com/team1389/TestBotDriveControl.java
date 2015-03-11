@@ -1,6 +1,7 @@
 package com.team1389;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TestBotDriveControl extends GenericDriver{
 	Victor RFDrive;
@@ -139,6 +140,9 @@ public class TestBotDriveControl extends GenericDriver{
 	@Override
 	public void teleopTick()
 	{
+		
+		SmartDashboard.putNumber("DisplacmentX", Robot.state.imu.getDisplacementX());
+		SmartDashboard.putNumber("DisplacmentY", Robot.state.imu.getDisplacementY());
 		String rampUp = null;
 		switch(rampUpState){
 			case STRICT_COMPUTER:rampUp="Strict";
@@ -175,7 +179,6 @@ public class TestBotDriveControl extends GenericDriver{
 			{
 			moveCount++;
 			return distance;
-			
 			}
 		else if (Robot.state.contactSensor.get()){
 			drive(speed,0);
