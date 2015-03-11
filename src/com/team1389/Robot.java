@@ -54,6 +54,8 @@ public class Robot extends SampleRobot {
 		//uncomment following line to use final robot driving
 		//driveControl = new FinalRobotDriveControl();
 		
+		setupComponents();
+		
 	}
 	
 	private void setupComponents(){
@@ -85,14 +87,30 @@ public class Robot extends SampleRobot {
 			for (Component c: components){
 				c.teleopTick();
 			}
+			SmartDashboard.putNumber("yaw",state.imu.getYaw());
+
 		}
 		
 	}
 
 	@Override
 	public void autonomous(){
+		
 		isAuton=true;
-		new Autonomous(1, components);
+		
+		for (Component c: components){
+			
+			c.autonConfig();
+		}
+		while (isOperatorControl())
+		{
+			state.tick();
+			
+			for (Component c: components){
+				c.autonTick();
+			}
+		}
+
 	}
 
 	/**bot into auton
@@ -105,5 +123,9 @@ public class Robot extends SampleRobot {
 	 */
 	public static Component getComponent(int index){
 		return components.get(index);
+	}
+	
+	@Override
+	public void test() {
 	}
 }

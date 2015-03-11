@@ -1,10 +1,13 @@
 package com.team1389;
 
+import com.kauailabs.nav6.frc.IMU;
+
 import edu.wpi.first.wpilibj.AnalogAccelerometer;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Timer;
 //import edu.wpi.first.wpilibj.visa.VisaException;
 
@@ -25,7 +28,8 @@ public class InputState implements Cloneable{
     
 
 	public Gyro gyro;
-	
+	public IMU imu;
+	public SerialPort serial_port;
 
 	public Timer time;
 	
@@ -45,7 +49,8 @@ public class InputState implements Cloneable{
 		 
 */
 		
-		
+		serial_port = new SerialPort(57600, SerialPort.Port.kMXP);
+		imu=new IMU(serial_port);
 		time = new Timer();
 		time.start();
 		
