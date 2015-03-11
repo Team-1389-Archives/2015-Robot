@@ -28,8 +28,10 @@ public class Robot extends SampleRobot {
 	static ArrayList<Component> components;
 	static InputState state;
 	final static int DRIVE=1,ELEVATOR=0,POS=2;
-	CameraServer server;
 	
+	
+	public CameraServer server;
+	public GenericDriver driveControl;
 	
 	/**
 	 * Instantiates all static motors and sensors. 
@@ -37,23 +39,31 @@ public class Robot extends SampleRobot {
 	 */
 	public Robot()
 	{
-		
+		state= new InputState();
+		components = new ArrayList<Component>();
+
+	
 		//server = CameraServer.getInstance();
 	    //server.setQuality(50);
 		   //the camera name (ex "cam0") can be found through the roborio web interface
 	    //server.startAutomaticCapture("cam0");
 		
-
+		//comment following line to disable test bot driving
+		driveControl = new TestBotDriveControl();
 		
-		state= new InputState();
-		components = new ArrayList<Component>();
+		//uncomment following line to use final robot driving
+		//driveControl = new FinalRobotDriveControl();
+		
+	}
+	
+	private void setupComponents(){
+		components.add(driveControl);
 		//components.add(new ElevatorControl());
 		//components.add(new CrapElevator());
-		//components.add(new DriveControl());
 		//components.add(new PosTrack());
 		//components.add(new DriveControl((PosTrack)(components.get(POS))));
 		//components.add(new SmartGUI());
-		
+
 	}
 	
 	

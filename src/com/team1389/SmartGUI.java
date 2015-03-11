@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class SmartGUI extends Component{
 
 	private ArrayList <Component> comps = Robot.components;
-	DriveControl control = (DriveControl)comps.get(Robot.DRIVE);
+	TestBotDriveControl control = (TestBotDriveControl)comps.get(Robot.DRIVE);
 	//PosTrack pos = (PosTrack)comps.get(Robot.POS);
 	Component ele = comps.get(Robot.ELEVATOR);
 	

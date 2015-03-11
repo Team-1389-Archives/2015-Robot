@@ -21,14 +21,14 @@ public class Autonomous {
 	AUTONTOTE_TO_LANDFILLTOTE = 12		*MULTIPLIER, 	//offset from auton tote to landfill totes
 	OVERHANG = 					13.5	*MULTIPLIER; 	//distance past chassis of lift arm
 	
-	private DriveControl drive;
+	private TestBotDriveControl drive;
 	private ElevatorControl elevator;
 	private PosTrack pos;
 
 	public Autonomous(int methodNum,ArrayList<Component> components)
 	{
 		pos=(PosTrack)components.get(Robot.POS);
-		drive=(DriveControl)components.get(Robot.DRIVE);
+		drive=(TestBotDriveControl)components.get(Robot.DRIVE);
 		elevator=(ElevatorControl)components.get(Robot.ELEVATOR);
 
 		switch(methodNum)

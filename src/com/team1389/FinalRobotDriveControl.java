@@ -1,61 +1,69 @@
+/*
+ * NOTE: it is vitally important that this class is never changed. This is the version
+ * that was was tested and worked on the last day of build season. So, if you want
+ * to add new drive code, make it in a whole new class.
+ */
+
 package com.team1389;
+
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class DriveControl extends Component{
+
+public class FinalRobotDriveControl extends GenericDriver{
+
 	final int STRICT_COMPUTER=0;
 	final int FULL_USER=1;
 	final int COMPUTER_ASSISTED=2;
-	Victor RFDrive;
-	Victor RBDrive;
-	Victor LFDrive;
-	Victor LBDrive;
+	Victor rightDrive;
+	Victor leftDrive;
 	double leftCoef;
 	double rightCoef;
-	int rampUpState;
+	static int rampUpState;
 	PosTrack pos;
 	int moveCount = 0;
 	int turnCount = 0;
-	final boolean encoderVerified=false;
+	final boolean encoderVerified=true;
+	static final float THROTTLE_TOL = 10;
 
 	double actualLeft = 0, actualRight = 0;
-	
-	public DriveControl(PosTrack pos) {
+
+	public FinalRobotDriveControl(PosTrack pos) {
 		this();
 		this.pos=pos;
 	}
-	public DriveControl(){
+	public FinalRobotDriveControl(){
 		rampUpState=COMPUTER_ASSISTED;
 		leftCoef=1;
 		rightCoef=1;
-		RFDrive = new Victor(Constants.RF_PWM_DRIVE);
-		RBDrive = new Victor(Constants.RB_PWM_DRIVE);
-		LFDrive = new Victor(Constants.LF_PWM_DRIVE);
-		LBDrive = new Victor(Constants.LB_PWM_DRIVE);
+		rightDrive = new Victor(Constants.RIGHT_PWM_DRIVE_FINAL_BOT);
+		leftDrive = new Victor(Constants.LEFT_PWM_DRIVE_FINAL_BOT);
 	}
 
 	public void drive(double x,double y){
-		
+
 		double leftPower=(y + x) / Constants.LIMITER;
 		double rightPower=(y - x) / Constants.LIMITER * -1;
 
 		if(rampUpState==COMPUTER_ASSISTED){
+			SmartDashboard.putString("mode", "computer assisted");
 			actualLeft=AssistedPowerControl(leftPower,actualLeft);
 			actualRight=AssistedPowerControl(rightPower,actualRight);
 		}
 		else if(rampUpState==STRICT_COMPUTER){
+			SmartDashboard.putString("mode", "Strict Computer");
 			actualLeft=PowerControl(leftPower,actualLeft);
 			actualRight=PowerControl(rightPower,actualRight);
 		}
 		else{
+			SmartDashboard.putString("mode", "user");
 			actualLeft=leftPower;
 			actualRight=rightPower;
 		}
 
-		LFDrive.set(actualLeft);
-		LBDrive.set(actualLeft);
-		RFDrive.set(actualRight);
-		RBDrive.set(actualRight);
+		leftDrive.set(actualLeft);
+		rightDrive.set(actualRight);
 
 		if(encoderVerified){
 			VerifyVelocity(leftPower, rightPower, Robot.state.encoder1, Robot.state.encoder2);
@@ -101,7 +109,7 @@ public class DriveControl extends Component{
 		}
 		return actualPower;
 	}
-	
+
 	/**
 	 * uses encoders to verify that the robot is going straight
 	 * @param leftPow left input power
@@ -122,16 +130,19 @@ public class DriveControl extends Component{
 			rightCoef*=Math.abs(error)*multiplier;
 		}
 	}
-	
-	public float fullPow(float y)
+
+
+
+	//If joystick is close enough to ful l forward of for backwards, registers as completely full forward/full backwards
+	//Within a tolderance of THROTTLE_TOL
+	public float fullThrottle(float y)
 	{
-		if (1 - Robot.state.drive.getLeftY() < .15)
+		if (Math.abs(90- Math.toDegrees(Math.atan(Robot.state.drive.getLeftY()) / Robot.state.drive.getLeftX())) < THROTTLE_TOL)
 			return 1;
-		if (-1 - Robot.state.drive.getLeftY() < -.15)
+		if (Math.abs(270 - Math.toDegrees(Math.atan(Robot.state.drive.getLeftY()) / Robot.state.drive.getLeftX())) < THROTTLE_TOL)
 			return -1;
 		return y;
 	}
-	
 
 	@Override
 	public void teleopConfig(){}
@@ -144,47 +155,47 @@ public class DriveControl extends Component{
 	{
 		String rampUp = null;
 		switch(rampUpState){
-			case STRICT_COMPUTER:rampUp="Strict";
-			break;
-			case FULL_USER:rampUp="User";
-			break;
-			case COMPUTER_ASSISTED:rampUp="Assisted";
-			break;
-			default:rampUp="null";
+		case STRICT_COMPUTER:rampUp="Strict";
+		break;
+		case FULL_USER:rampUp="User";
+		break;
+		case COMPUTER_ASSISTED:rampUp="Assisted";
+		break;
+		default:rampUp="null";
 		}
 		if(Robot.state.drive.isBPressed()){
 			rampUpState++;
 			rampUpState%=3;
 		}
 		float y = (float) Robot.state.drive.getLeftY() * -1;
-		//y = fullPow(y);
+		//y = fullThrottle(y);
 		drive(Robot.state.drive.getLeftX(), y); 
 	}
-	
+
 	/**
-	* autonomous drive system
+	 * autonomous drive system
 	 * @param distance the distance to drive
 	 * @param speed min:-1 max:1 - numbers cause robot to go backward
 	 * simulates xbox control stick
 	 */
 
 	public double move(double distance, double speed){
-		
+
 		pos.teleopTick();
 		if (moveCount == 0)
 		{
 			pos.resetDistance();
-		if(pos.distance>=distance)
+			if(pos.distance>=distance)
 			{
-			moveCount++;
-			return distance;
-			
+				moveCount++;
+				return distance;
+
 			}
-		else if (Robot.state.contactSensor.get()){
-			drive(speed,0);
-			moveCount++;
-			return move(distance,speed);
-		}
+			else if (Robot.state.contactSensor.get()){
+				drive(speed,0);
+				moveCount++;
+				return move(distance,speed);
+			}
 		}
 		return 0;
 	}
@@ -196,7 +207,7 @@ public class DriveControl extends Component{
 			return turn(angle);
 		}
 	}
-	
+
 	/**
 	 * Drive train Autonomous setup
 	 */
@@ -204,8 +215,8 @@ public class DriveControl extends Component{
 	public void autonConfig(){}
 
 	/**
-	* Instructions for drive train at each autonomous tick. 
-	*/
+	 * Instructions for drive train at each autonomous tick. 
+	 */
 	@Override
 	public void autonTick(){}
 	@Override	
@@ -213,3 +224,4 @@ public class DriveControl extends Component{
 
 	}
 }
+
