@@ -3,9 +3,6 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Victor;
 
 public class TestBotDriveControl extends GenericDriver{
-	final int STRICT_COMPUTER=0;
-	final int FULL_USER=1;
-	final int COMPUTER_ASSISTED=2;
 	Victor RFDrive;
 	Victor RBDrive;
 	Victor LFDrive;
@@ -211,5 +208,9 @@ public class TestBotDriveControl extends GenericDriver{
 	@Override	
 	public void test(){
 
+	}
+	@Override
+	public void setRampMode(int mode) {
+		rampUpState = mode;
 	}
 }

@@ -223,5 +223,9 @@ public class FinalRobotDriveControl extends GenericDriver{
 	public void test(){
 
 	}
+	@Override
+	public void setRampMode(int mode) {
+		rampUpState = mode;
+	}
 }
 

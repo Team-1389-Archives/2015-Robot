@@ -27,5 +27,11 @@ public class Component implements phaseMethods{
 	public void teleopTick() {
 		
 	}
+
+	@Override
+	public void onDisable() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

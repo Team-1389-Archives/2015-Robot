@@ -2,6 +2,8 @@ package com.team1389;
 
 import java.util.ArrayList;
 
+import com.team1389.auton.AutonDriveControl;
+
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,12 +28,11 @@ public class Robot extends SampleRobot {
 	//instance variables
 	static boolean isAuton;
 	static ArrayList<Component> components;
-	static InputState state;
+	public static InputState state;
 	final static int DRIVE=1,ELEVATOR=0,POS=2;
-	
+	public static GenericDriver driveControl;
 	
 	public CameraServer server;
-	public GenericDriver driveControl;
 	
 	/**
 	 * Instantiates all static motors and sensors. 
@@ -60,6 +61,7 @@ public class Robot extends SampleRobot {
 	
 	private void setupComponents(){
 		components.add(driveControl);
+		components.add(new AutonDriveControl());
 		//components.add(new ElevatorControl());
 		//components.add(new CrapElevator());
 		//components.add(new PosTrack());
@@ -87,8 +89,6 @@ public class Robot extends SampleRobot {
 			for (Component c: components){
 				c.teleopTick();
 			}
-			SmartDashboard.putNumber("yaw",state.imu.getYaw());
-
 		}
 		
 	}
@@ -126,6 +126,9 @@ public class Robot extends SampleRobot {
 	}
 	
 	@Override
-	public void test() {
+	protected void disabled() {
+		for (Component c : components){
+			c.onDisable();
+		}
 	}
 }

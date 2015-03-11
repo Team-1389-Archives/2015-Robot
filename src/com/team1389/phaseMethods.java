@@ -7,5 +7,6 @@ public interface phaseMethods {
 	public void autonTick();
 	public void teleopConfig();
 	public void teleopTick();
+	public void onDisable();
 
 }
