@@ -40,4 +40,10 @@ public class DriveStraight extends PIDSubsystem{
 	@Override
 	protected void initDefaultCommand() {
 	}
+	
+	@Override
+	public void disable() {
+		Robot.driveControl.drive(0, 0);
+		super.disable();
+	}
 }

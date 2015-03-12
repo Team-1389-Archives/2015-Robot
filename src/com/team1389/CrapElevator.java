@@ -13,7 +13,6 @@ public class CrapElevator extends Component{
 	}
 	public void teleopTick(){
 		lift.set(Robot.state.manip.getRightY()*Constants.ELEVATOR_SPEED_MOD);
-		SmartDashboard.putNumber("righty", Robot.state.manip.getRightY());
 	}
 	
 }

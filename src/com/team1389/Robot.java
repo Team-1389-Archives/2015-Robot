@@ -82,8 +82,7 @@ public class Robot extends SampleRobot {
 		}
 		while (isOperatorControl() && isEnabled())
 		{
-			state.tick();
-			
+			state.tick();		
 			for (Component c: components){
 				c.teleopTick();
 			}
