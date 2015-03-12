@@ -2,6 +2,8 @@ package com.team1389;
 
 import java.util.ArrayList;
 
+import com.team1389.auton.Autonomous;
+
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,6 +26,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends SampleRobot {
 	
 	//instance variables
+	static Robot me;
 	static boolean isAuton;
 	static ArrayList<Component> components;
 	public static InputState state;
@@ -39,6 +42,7 @@ public class Robot extends SampleRobot {
 	 */
 	public Robot()
 	{
+		me = this;
 		state= new InputState();
 		components = new ArrayList<Component>();
 
@@ -99,6 +103,7 @@ public class Robot extends SampleRobot {
 			
 			c.autonConfig();
 		}
+		/*
 		while (isAutonomous() && isEnabled())
 		{
 			state.tick();
@@ -110,8 +115,9 @@ public class Robot extends SampleRobot {
 		
 		for (Component c : components){
 			c.onAutonDisable();
-		}
-
+		}*/
+		
+		Autonomous auto = new Autonomous(1, components);
 	}
 
 	/**bot into auton
@@ -128,6 +134,11 @@ public class Robot extends SampleRobot {
 	
 	@Override
 	protected void disabled() {
-		
+		isAuton = false;
 	}
+	
+	public static boolean isRobotEnabled(){
+		return me.isEnabled();
+	}
+
 }
