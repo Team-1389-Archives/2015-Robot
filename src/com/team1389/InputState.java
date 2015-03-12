@@ -61,6 +61,15 @@ public class InputState implements Cloneable{
 		encoder1 = new Encoder(Constants.ENCODER_1A,Constants.ENCODER_1B);
 		encoder2 = new Encoder(Constants.ENCODER_2A,Constants.ENCODER_2B);
 		
+		if (Constants.isTestBot){
+			double dpp = .0058; // 0.00725
+			encoder1.setDistancePerPulse(dpp);
+			encoder2.setDistancePerPulse(dpp);
+		}else {
+			//XXX
+			//TODO
+		}
+		
 		//limit1 = new DigitalInput(Constants.LIMIT_ONE);
 		//limit2 = new DigitalInput(Constants.LIMIT_TWO);
 		

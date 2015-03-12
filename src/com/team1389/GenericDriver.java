@@ -21,6 +21,7 @@ public abstract class GenericDriver extends Component {
 	public GenericDriver() {
 		straight = new DriveStraight(Robot.state.imu, .4);
 		tracker = new DistanceTracker(Robot.state.encoder1);
+		SmartDashboard.putNumber("autonDistance", 5);
 	}
 
 	@Override
@@ -33,7 +34,7 @@ public abstract class GenericDriver extends Component {
 		stillDriving = true;
 
 
-		tracker.start(300);
+		tracker.start(SmartDashboard.getNumber("autonDistance"));
 	}
 
 	@Override

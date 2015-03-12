@@ -21,6 +21,9 @@ package com.team1389;
  */
 
 public class Constants {
+	//which bot
+	static final boolean isTestBot = true;	
+	
 	//Joystick input values
 	static final int ButtonX 			  = 3; // XBox Controller X Button number for getRawButton= or getRawAxis=
 	static final int ButtonA			  = 1; // XBox Controller A Button number
