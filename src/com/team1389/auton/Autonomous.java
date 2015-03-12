@@ -1,5 +1,6 @@
 package com.team1389.auton;
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 import com.team1389.Component;
@@ -9,6 +10,7 @@ import com.team1389.PosTrack;
 import com.team1389.Robot;
 import com.team1389.TestBotDriveControl;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Autonomous {
@@ -41,6 +43,7 @@ public class Autonomous {
 		switch(methodNum)
 		{
 		case 1: autonOne(); break;
+		case 2: squareDance(); break;
 		default: break;
 		}
 	}
@@ -48,6 +51,15 @@ public class Autonomous {
 	
 	private void autonOne(){
 		drive.goStaightDistance(SmartDashboard.getNumber("autonDistance"));
+		drive.turnAngle(90);
 	}
 
+	private void squareDance(){
+		while(Robot.isRobotEnabled()){
+			drive.goStaightDistance(2);
+			Timer.delay(1);
+			drive.turnAngle(90);
+			Timer.delay(1);
+		}
+	}
 }

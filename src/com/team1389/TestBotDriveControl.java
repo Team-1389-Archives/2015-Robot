@@ -140,9 +140,6 @@ public class TestBotDriveControl extends GenericDriver{
 	@Override
 	public void teleopTick()
 	{
-		
-		SmartDashboard.putNumber("DisplacmentX", Robot.state.imu.getDisplacementX());
-		SmartDashboard.putNumber("DisplacmentY", Robot.state.imu.getDisplacementY());
 		String rampUp = null;
 		switch(rampUpState){
 			case STRICT_COMPUTER:rampUp="Strict";

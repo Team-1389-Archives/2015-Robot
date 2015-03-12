@@ -2,6 +2,7 @@ package com.team1389;
 
 import com.team1389.auton.DistanceTracker;
 import com.team1389.auton.DriveStraight;
+import com.team1389.auton.TurnPID;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,11 +18,13 @@ public abstract class GenericDriver extends Component {
 
 	private DriveStraight straight;
 	private DistanceTracker tracker;
+	private TurnPID turn;
 	private boolean stillDriving;
 
 	public GenericDriver() {
 		straight = new DriveStraight(Robot.state.imu, .4);
 		tracker = new DistanceTracker(Robot.state.encoder1);
+		turn = new TurnPID(Robot.state.imu);
 	}
 
 	@Override
@@ -40,10 +43,20 @@ public abstract class GenericDriver extends Component {
 		straight.enable();
 		while(!tracker.isFinished() && Robot.isRobotEnabled()){
 			SmartDashboard.putBoolean("wating for done with motion", true);
-			Timer.delay(.1);
+			Timer.delay(.05);
 		}
 		SmartDashboard.putBoolean("wating for done with motion", false);
 		straight.disable();
+		drive(0,0);
+	}
+	
+	public void turnAngle(double angle){
+		turn.setSetpoint(Robot.state.imu.getYaw() + angle);
+		turn.enable();
+		while(!turn.onTarget() && Robot.isRobotEnabled()){
+			Timer.delay(.05);
+		}
+		turn.disable();
 		drive(0,0);
 	}
 
