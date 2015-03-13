@@ -20,7 +20,7 @@ public class TurnPID extends PIDSubsystem{
 		setInputRange(-180, 180);
 		setOutputRange(-.5, .5);
 		getPIDController().setContinuous();
-		getPIDController().setPercentTolerance(.5);
+		getPIDController().setPercentTolerance(2);
 	}
 
 	@Override

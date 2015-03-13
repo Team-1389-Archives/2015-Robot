@@ -20,6 +20,8 @@ public abstract class GenericDriver extends Component {
 	private DistanceTracker tracker;
 	private TurnPID turn;
 	private boolean stillDriving;
+	
+	private double theoreticalAngle;
 
 	public GenericDriver() {
 		straight = new DriveStraight(Robot.state.imu, .4);
@@ -35,6 +37,8 @@ public abstract class GenericDriver extends Component {
 		SmartDashboard.putNumber("100I", 0);
 		SmartDashboard.putNumber("100D", 0);
 		SmartDashboard.putNumber("MaxSpeed", .4);
+		
+		theoreticalAngle = Robot.state.imu.getYaw();
 	}
 
 	@Override
@@ -70,16 +74,14 @@ public abstract class GenericDriver extends Component {
 	}
 	
 	public void turnAngle(double angle){
-		double finishAngle = Robot.state.imu.getYaw() + angle;
-		double revisedAngle = 0.0;
-		if (finishAngle > 180){
-			revisedAngle = finishAngle - 360;
-		} else if (finishAngle < -180) {
-			revisedAngle = finishAngle + 360;
-		} else {
-			revisedAngle = finishAngle;
+		theoreticalAngle += angle;
+		if (theoreticalAngle > 180){
+			theoreticalAngle -= 360;
+		} else if (theoreticalAngle < -180) {
+			theoreticalAngle += 360;
 		}
-		turn.setSetpoint(revisedAngle);
+		
+		turn.setSetpoint(theoreticalAngle);
 		turn.enable();
 		while(!turn.onTarget() && Robot.isRobotEnabled()){
 			Timer.delay(.05);
