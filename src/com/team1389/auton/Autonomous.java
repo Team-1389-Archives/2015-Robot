@@ -66,9 +66,9 @@ public class Autonomous {
 	
 	private void testAuton(){
 		while(Robot.isRobotEnabled()){
-			drive.turnAngle(-180);
-			Timer.delay(1);
-			drive.turnAngle(180);
+//			drive.turnAngle(-180);
+//			Timer.delay(1);
+			drive.turnAngle(90);
 			Timer.delay(1);
 		}
 	}

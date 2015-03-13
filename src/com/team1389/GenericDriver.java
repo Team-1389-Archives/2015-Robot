@@ -26,9 +26,14 @@ public abstract class GenericDriver extends Component {
 		tracker = new DistanceTracker(Robot.state.encoder1);
 		turn = new TurnPID(Robot.state.imu);
 		
-		SmartDashboard.putNumber("P", .2);
-		SmartDashboard.putNumber("I", 0);
-		SmartDashboard.putNumber("D", 0);
+		SmartDashboard.putNumber("BACKUP-100P", SmartDashboard.getNumber("100P"));
+		SmartDashboard.putNumber("BACKUP-100I", SmartDashboard.getNumber("100I"));
+		SmartDashboard.putNumber("BACKUP-100D", SmartDashboard.getNumber("100D"));
+		SmartDashboard.putNumber("BACKUP-MaxSpeed", SmartDashboard.getNumber("MaxSpeed"));
+		
+		SmartDashboard.putNumber("100P", .2);
+		SmartDashboard.putNumber("100I", 0);
+		SmartDashboard.putNumber("100D", 0);
 		SmartDashboard.putNumber("MaxSpeed", .4);
 	}
 
@@ -37,9 +42,9 @@ public abstract class GenericDriver extends Component {
 		setRampMode(GenericDriver.FULL_USER);
 		straight.setSetpoint(Robot.state.imu.getYaw());
 		
-		double p = SmartDashboard.getNumber("P");
-		double i = SmartDashboard.getNumber("I");
-		double d = SmartDashboard.getNumber("D");
+		double p = SmartDashboard.getNumber("100P") / 100;
+		double i = SmartDashboard.getNumber("100I") / 100;
+		double d = SmartDashboard.getNumber("100D") / 100;
 		double maxSpeed = SmartDashboard.getNumber("MaxSpeed");
 		
 		turn.getPIDController().setPID(p, i, d);
