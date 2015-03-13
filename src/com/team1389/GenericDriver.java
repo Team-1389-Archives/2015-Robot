@@ -25,12 +25,26 @@ public abstract class GenericDriver extends Component {
 		straight = new DriveStraight(Robot.state.imu, .4);
 		tracker = new DistanceTracker(Robot.state.encoder1);
 		turn = new TurnPID(Robot.state.imu);
+		
+		SmartDashboard.putNumber("P", .2);
+		SmartDashboard.putNumber("I", 0);
+		SmartDashboard.putNumber("D", 0);
+		SmartDashboard.putNumber("MaxSpeed", .4);
 	}
 
 	@Override
 	public void autonConfig() {
 		setRampMode(GenericDriver.FULL_USER);
 		straight.setSetpoint(Robot.state.imu.getYaw());
+		
+		double p = SmartDashboard.getNumber("P");
+		double i = SmartDashboard.getNumber("I");
+		double d = SmartDashboard.getNumber("D");
+		double maxSpeed = SmartDashboard.getNumber("MaxSpeed");
+		
+		turn.getPIDController().setPID(p, i, d);
+		turn.getPIDController().setOutputRange(-maxSpeed, maxSpeed);
+
 	}
 
 	@Override
@@ -51,7 +65,16 @@ public abstract class GenericDriver extends Component {
 	}
 	
 	public void turnAngle(double angle){
-		turn.setSetpoint(Robot.state.imu.getYaw() + angle);
+		double finishAngle = Robot.state.imu.getYaw() + angle;
+		double revisedAngle = 0.0;
+		if (finishAngle > 180){
+			revisedAngle = finishAngle - 360;
+		} else if (finishAngle < -180) {
+			revisedAngle = finishAngle + 360;
+		} else {
+			revisedAngle = finishAngle;
+		}
+		turn.setSetpoint(revisedAngle);
 		turn.enable();
 		while(!turn.onTarget() && Robot.isRobotEnabled()){
 			Timer.delay(.05);

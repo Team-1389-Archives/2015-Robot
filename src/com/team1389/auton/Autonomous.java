@@ -44,6 +44,7 @@ public class Autonomous {
 		{
 		case 1: autonOne(); break;
 		case 2: squareDance(); break;
+		case 3: testAuton(); break;
 		default: break;
 		}
 	}
@@ -59,6 +60,15 @@ public class Autonomous {
 			drive.goStaightDistance(2);
 			Timer.delay(1);
 			drive.turnAngle(90);
+			Timer.delay(1);
+		}
+	}
+	
+	private void testAuton(){
+		while(Robot.isRobotEnabled()){
+			drive.turnAngle(-180);
+			Timer.delay(1);
+			drive.turnAngle(180);
 			Timer.delay(1);
 		}
 	}

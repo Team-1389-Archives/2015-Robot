@@ -10,31 +10,44 @@ public class TurnPID extends PIDSubsystem{
 	final double leftModifyer = -1;
 	final double rightModifyer = 1;
 	
+	private double startAngle;
+	private double setPoint;
+	
 	private IMU imu;
 	public TurnPID(IMU imu){
-		super(.04, 0, 0);
+		super(.03, 0.1, 0);
 		this.imu=imu;
 		setInputRange(-180, 180);
-		setOutputRange(-.6, .6);
+		setOutputRange(-.5, .5);
 		getPIDController().setContinuous();
-		getPIDController().setPercentTolerance(5);
+		getPIDController().setPercentTolerance(.5);
 	}
 
 	@Override
 	protected double returnPIDInput(){
 		float pidOutput = imu.getYaw();
-		SmartDashboard.putNumber("PidReadOutput", pidOutput);
+		SmartDashboard.putNumber("startAngle" , startAngle);
+		SmartDashboard.putNumber("endAngle", setPoint);
+		SmartDashboard.putNumber("difference", setPoint - startAngle);
 		return pidOutput;
 	}
 
 	@Override
 	protected void usePIDOutput(double output) {
 		SmartDashboard.putNumber("output", output);
+		
 		Robot.driveControl.drive(output, 0);
 	}
 
 	@Override
 	protected void initDefaultCommand() {
+	}
+	
+	@Override
+	public void setSetpoint(double setpoint) {
+		startAngle = imu.getYaw();
+		this.setPoint = setpoint;
+		super.setSetpoint(setpoint);
 	}
 	
 	@Override
