@@ -28,17 +28,12 @@ public abstract class GenericDriver extends Component {
 		tracker = new DistanceTracker(Robot.state.encoder1);
 		turn = new TurnPID(Robot.state.imu);
 		
-		SmartDashboard.putNumber("BACKUP-100P", SmartDashboard.getNumber("100P"));
-		SmartDashboard.putNumber("BACKUP-100I", SmartDashboard.getNumber("100I"));
-		SmartDashboard.putNumber("BACKUP-100D", SmartDashboard.getNumber("100D"));
-		SmartDashboard.putNumber("BACKUP-MaxSpeed", SmartDashboard.getNumber("MaxSpeed"));
 		
-		SmartDashboard.putNumber("100P", .2);
-		SmartDashboard.putNumber("100I", 0);
-		SmartDashboard.putNumber("100D", 0);
-		SmartDashboard.putNumber("MaxSpeed", .4);
-		
-		theoreticalAngle = Robot.state.imu.getYaw();
+		SmartDashboard.putNumber("100P", SmartDashboard.getNumber("100P", 0));
+		SmartDashboard.putNumber("100I", SmartDashboard.getNumber("100I", 0));
+		SmartDashboard.putNumber("100D", SmartDashboard.getNumber("100D", 0));
+		SmartDashboard.putNumber("MaxSpeed", SmartDashboard.getNumber("MaxSpeed", 0));
+		SmartDashboard.putNumber("%tolerance", SmartDashboard.getNumber("%tolerance", 0));
 	}
 
 	@Override
@@ -52,8 +47,10 @@ public abstract class GenericDriver extends Component {
 		double maxSpeed = SmartDashboard.getNumber("MaxSpeed");
 		
 		turn.getPIDController().setPID(p, i, d);
+		turn.getPIDController().setPercentTolerance(SmartDashboard.getNumber("%tolerance"));
 		turn.getPIDController().setOutputRange(-maxSpeed, maxSpeed);
 
+		theoreticalAngle = Robot.state.imu.getYaw();
 	}
 
 	@Override
