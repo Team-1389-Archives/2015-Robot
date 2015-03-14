@@ -64,6 +64,7 @@ public class Robot extends SampleRobot {
 	
 	private void setupComponents(){
 		components.add(driveControl);
+		components.add(new LightsComponent());
 		//components.add(new ElevatorControl());
 		//components.add(new CrapElevator());
 		//components.add(new PosTrack());
@@ -137,8 +138,8 @@ public class Robot extends SampleRobot {
 		isAuton = false;
 	}
 	
-	public static boolean isRobotEnabled(){
-		return me.isEnabled();
+	public static boolean isRobotAutonEnabled(){
+		return me.isEnabled() && me.isAutonomous();
 	}
 
 }

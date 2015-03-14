@@ -45,6 +45,8 @@ public class Autonomous {
 		case 1: autonOne(); break;
 		case 2: squareDance(); break;
 		case 3: testAuton(); break;
+		case 4: dontDoShit(); break;
+		case 5: zigZag(); break;
 		default: break;
 		}
 	}
@@ -56,7 +58,7 @@ public class Autonomous {
 	}
 
 	private void squareDance(){
-		while(Robot.isRobotEnabled()){
+		while(Robot.isRobotAutonEnabled()){
 			drive.goStaightDistance(2);
 			Timer.delay(1);
 			drive.turnAngle(90);
@@ -65,11 +67,30 @@ public class Autonomous {
 	}
 	
 	private void testAuton(){
-		while(Robot.isRobotEnabled()){
+		while(Robot.isRobotAutonEnabled()){
 //			drive.turnAngle(-180);
 //			Timer.delay(1);
 			drive.turnAngle(90);
 			Timer.delay(1);
 		}
+	}
+	
+	private void dontDoShit(){
+		
+	}
+	
+	private void zigZag(){
+		drive.turnAngle(-45);
+		while(Robot.isRobotAutonEnabled()){
+			drive.turnAngle(90);
+			Timer.delay(1);
+			drive.goStaightDistance(2);
+			Timer.delay(1);
+			drive.turnAngle(-90);
+			Timer.delay(1);
+			drive.goStaightDistance(2);
+			Timer.delay(1);
+		}
+
 	}
 }
