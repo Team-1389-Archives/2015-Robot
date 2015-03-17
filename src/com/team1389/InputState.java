@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 //import edu.wpi.first.wpilibj.visa.VisaException;
 
 //import com.kauailabs.nav6.frc.BufferingSerialPort;
@@ -31,7 +32,7 @@ public class InputState implements Cloneable{
 	public Gyro gyro;
 	public AHRS imu;
 	public SerialPort serial_port;
-
+	public BuiltInAccelerometer accel;
 	public Timer time;
 	
 	public DigitalInput[] infared;
@@ -49,7 +50,7 @@ public class InputState implements Cloneable{
 		 imu = new IMUAdvanced(serial_port);
 		 
 */
-		
+		accel=new BuiltInAccelerometer();
 		serial_port = new SerialPort(57600, SerialPort.Port.kMXP);
 		imu= new AHRS(serial_port);
 		time = new Timer();
@@ -62,7 +63,7 @@ public class InputState implements Cloneable{
 		encoder2 = new Encoder(Constants.ENCODER_2A,Constants.ENCODER_2B);
 		
 		if (Constants.isTestBot){
-			double dpp = .0058; // 0.00725
+			double dpp = .0042775; // 0.00725
 			encoder1.setDistancePerPulse(dpp);
 			encoder2.setDistancePerPulse(dpp);
 		}else {

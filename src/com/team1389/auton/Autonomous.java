@@ -39,7 +39,7 @@ public class Autonomous {
 		drive = Robot.driveControl;
 
 		
-		
+		autonInit();
 		switch(methodNum)
 		{
 		case 1: autonOne(); break;
@@ -47,8 +47,17 @@ public class Autonomous {
 		case 3: testAuton(); break;
 		case 4: dontDoShit(); break;
 		case 5: zigZag(); break;
+		case 6: t20Feet(); break;
 		default: break;
 		}
+	}
+	public void autonInit(){
+		SmartDashboard.putBoolean("calibrating",true);
+		while(Robot.state.imu.isCalibrating());
+		SmartDashboard.putBoolean("calibrating",false);
+		Robot.state.imu.resetDisplacement();
+		Robot.state.imu.zeroYaw();
+		Timer.delay(5);
 	}
 	
 	
@@ -92,5 +101,9 @@ public class Autonomous {
 			Timer.delay(1);
 		}
 
+	}
+	
+	private void t20Feet(){
+		drive.goStaightDistance(20);
 	}
 }

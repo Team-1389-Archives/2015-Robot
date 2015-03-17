@@ -17,10 +17,10 @@ public class TurnPID extends PIDSubsystem{
 
 	private IMU imu;
 	public TurnPID(IMU imu){
-		super(.03, 0.1, 0);
+		super(.005, 0, 0);
 		this.imu=imu;
 		setInputRange(-180, 180);
-		setOutputRange(-.5, .5);
+		setOutputRange(-.4, .4);
 		getPIDController().setContinuous();
 		getPIDController().setPercentTolerance(2);
 
