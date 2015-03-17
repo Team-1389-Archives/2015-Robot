@@ -139,7 +139,7 @@ public class Robot extends SampleRobot {
 			c.onAutonDisable();
 		}*/
 		
-		Autonomous auto = new Autonomous(6, components);
+		Autonomous auto = new Autonomous(7, components);
 	}
 
 	/**bot into auton

@@ -20,9 +20,9 @@ public class TurnPID extends PIDSubsystem{
 		super(.005, 0, 0);
 		this.imu=imu;
 		setInputRange(-180, 180);
-		setOutputRange(-.4, .4);
+		setOutputRange(-.5, .5);
 		getPIDController().setContinuous();
-		getPIDController().setPercentTolerance(2);
+		getPIDController().setPercentTolerance(3);
 
 		lastOutput = 1;
 	}

@@ -48,6 +48,7 @@ public class Autonomous {
 		case 4: dontDoShit(); break;
 		case 5: zigZag(); break;
 		case 6: t20Feet(); break;
+		case 7: threeTotes(); break;
 		default: break;
 		}
 	}
@@ -57,7 +58,7 @@ public class Autonomous {
 		SmartDashboard.putBoolean("calibrating",false);
 		Robot.state.imu.resetDisplacement();
 		Robot.state.imu.zeroYaw();
-		Timer.delay(5);
+		//Timer.delay(5);
 	}
 	
 	
@@ -105,5 +106,15 @@ public class Autonomous {
 	
 	private void t20Feet(){
 		drive.goStaightDistance(20);
+	}
+	
+	private void threeTotes(){
+		drive.goStaightDistance(5);
+		Timer.delay(1);
+		drive.goStaightDistance(5);
+		Timer.delay(1);
+		drive.goStaightDistance(5);
+		Timer.delay(1);
+		drive.turnAngle(90);
 	}
 }
