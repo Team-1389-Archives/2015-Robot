@@ -74,6 +74,20 @@ public class Constants {
 	static final int ELEVATOR_MAX_HEIGHT = 4;
 	static final double MAX_ACCELERATION   = 0.002;
 	static final double PERCENT_POWER_CHANGE = 0.025;
-
-
+	
+	//field dimentions in feet
+	static final double TOTE_LENGTH = 27 / 12;
+	static final double CONTAINER_DIAMETER = 22 / 12;
+	static final double AUTON_ELEMENT_GAP = 2 + 9/12; //gap between tote+container pairs in auton setup
+	static final double DISTANCE_TO_LANDMARK = 8 + 11/12; //distance needed to travel from auton elements to landmark
+	
+	static final double driveSpeed = testFinalSwitch(.5, .4);
+	
+	static <T> T testFinalSwitch(T testOption, T finalOption){
+		if (isTestBot){
+			return testOption;
+		} else {
+			return finalOption;
+		}
+	}
 }

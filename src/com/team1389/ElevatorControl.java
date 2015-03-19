@@ -1,7 +1,7 @@
 package com.team1389;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-public class ElevatorControl extends Component{
+public class ElevatorControl extends GenericElevator{
 	
 	SpeedController elevator= new Victor(Constants.ELEVATOR_PWM);
 	//Our IR sensors output low when an object is within 2cm - 10cm of an object (e. g. !IRa.get() equates to true when there is an object in front of sensor one) 

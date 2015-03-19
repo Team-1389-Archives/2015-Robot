@@ -24,18 +24,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //Component @ in1 = ElevatorControl
 //Component @ in2 = PosTrack
 public class Robot extends SampleRobot {
-	
+
 	//instance variables
 	static Robot me;
 	static boolean isAuton;
 	static ArrayList<Component> components;
 	public static InputState state;
 	final static int DRIVE=1,ELEVATOR=0,POS=2;
-	public static GenericDriver driveControl;
 
-	
+	public static GenericDriver driveControl;
+	public static GenericElevator elevatorControl;
+	public static GenericKnockerArm knockerControl;
+
 	public CameraServer server;
-	
+
 	/**
 	 * Instantiates all static motors and sensors. 
 	 * Instantiates all component objects
@@ -46,34 +48,46 @@ public class Robot extends SampleRobot {
 		state= new InputState();
 		components = new ArrayList<Component>();
 
-	
+
 		//server = CameraServer.getInstance();
-	    //server.setQuality(50);
-		   //the camera name (ex "cam0") can be found through the roborio web interface
-	    //server.startAutomaticCapture("cam0");
-		
+		//server.setQuality(50);
+		//the camera name (ex "cam0") can be found through the roborio web interface
+		//server.startAutomaticCapture("cam0");
+
 		//comment following line to disable test bot driving
-		driveControl = new TestBotDriveControl();
-		
+
 		//uncomment following line to use final robot driving
 		//driveControl = new FinalRobotDriveControl();
+
+		if (Constants.isTestBot){
+			setupTestbotComponents();
+		} else {
+			setupFinalBotComponents();
+		}
 		
-		setupComponents();
-		
-	}
-	
-	private void setupComponents(){
-		components.add(driveControl);
-		components.add(new LightsComponent());
-		//components.add(new ElevatorControl());
-		//components.add(new CrapElevator());
-		//components.add(new PosTrack());
-		//components.add(new DriveControl((PosTrack)(components.get(POS))));
-		//components.add(new SmartGUI());
+		commonSetup();
 
 	}
 	
-	
+	private void commonSetup(){
+		components.add(driveControl);
+		components.add(elevatorControl);
+		components.add(knockerControl);
+	}
+
+	private void setupFinalBotComponents(){
+		driveControl = new FinalRobotDriveControl();
+		elevatorControl = new ElevatorControl();
+		
+	}
+
+	private void setupTestbotComponents(){
+		driveControl = new TestBotDriveControl();
+		elevatorControl = new TheoreticalElevator();
+		knockerControl = new TheoreticalKnockerArm();
+	}
+
+
 	/**
 	 * Teleoperated configuration
 	 * Update each component each iteration through the ".teleopTick()" method
@@ -82,19 +96,19 @@ public class Robot extends SampleRobot {
 	{
 		isAuton=false;
 		for (Component c: components){
-			
+
 			c.teleopConfig();
 		}
 		while (isOperatorControl() && isEnabled())
 		{
-			
+
 			state.tick();	
-			
+
 			if (state.drive.isButtonY()){
 				state.imu.resetDisplacement();
 			}
-			
-			
+
+
 			SmartDashboard.putNumber("X Displacment", state.imu.getDisplacementX());
 			SmartDashboard.putNumber("Y Displacment", state.imu.getDisplacementY());
 			SmartDashboard.putNumber("Compass X", state.imu.getCalibratedMagnetometerX());
@@ -113,39 +127,39 @@ public class Robot extends SampleRobot {
 				c.teleopTick();
 			}
 		}
-		
+
 	}
 
 	@Override
 	public void autonomous(){
-		
+
 		isAuton=true;
-		
+
 		for (Component c: components){
-			
+
 			c.autonConfig();
 		}
 		/*
 		while (isAutonomous() && isEnabled())
 		{
 			state.tick();
-			
+
 			for (Component c: components){
 				c.autonTick();
 			}
 		}
-		
+
 		for (Component c : components){
 			c.onAutonDisable();
 		}*/
-		
+
 		Autonomous auto = new Autonomous(7, components);
 	}
 
 	/**bot into auton
 	 * go forward into autonomous zone
 	 */
-	
+
 	/**
 	 * Autonomous configuration
 	 * Update each component through the ".autonTick()" method
@@ -153,7 +167,7 @@ public class Robot extends SampleRobot {
 	public static Component getComponent(int index){
 		return components.get(index);
 	}
-	
+
 	@Override
 	protected void disabled() {
 		isAuton = false;
