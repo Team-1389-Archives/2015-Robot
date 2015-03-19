@@ -50,9 +50,9 @@ public abstract class GenericDriver extends Component {
 //		turn.getPIDController().setPercentTolerance(SmartDashboard.getNumber("%tolerance"));
 //		turn.getPIDController().setOutputRange(-maxSpeed, maxSpeed);
 
-		//		straight.getPIDController().setPID(p, i, d);
-		//		straight.getPIDController().setPercentTolerance(SmartDashboard.getNumber("%tolerance"));
-		//		straight.getPIDController().setOutputRange(-maxSpeed, maxSpeed);
+		straight.getPIDController().setPID(p, i, d);
+		straight.getPIDController().setPercentTolerance(SmartDashboard.getNumber("%tolerance"));
+		straight.getPIDController().setOutputRange(-maxSpeed, maxSpeed);
 
 		theoreticalAngle = Robot.state.imu.getYaw();
 	}

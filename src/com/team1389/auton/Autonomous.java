@@ -4,6 +4,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 
 import com.team1389.Component;
+import com.team1389.Constants;
 import com.team1389.ElevatorControl;
 import com.team1389.GenericDriver;
 import com.team1389.PosTrack;
@@ -108,13 +109,55 @@ public class Autonomous {
 		drive.goStaightDistance(20);
 	}
 	
+	
+	
 	private void threeTotes(){
-		drive.goStaightDistance(5);
-		Timer.delay(1);
-		drive.goStaightDistance(5);
-		Timer.delay(1);
-		drive.goStaightDistance(5);
-		Timer.delay(1);
+		//start with elevator up
+		Robot.elevatorControl.goTo(1);
+
+		//pick up first tote
+		pickupTote();
+		
+		//knock container 1
+		knockContainer();
+		
+		//go to second element set
+		moveToNextElementSet();
+		
+		//pickup second tote
+		pickupTote();
+		
+		//knock second container
+		knockContainer();
+		
+		//go to third element set
+		moveToNextElementSet();
+		
+		//pickup third tote
+		pickupTote();
+		
+		//turn to auto zone
 		drive.turnAngle(90);
+		
+		//go into auto zone
+		drive.goStaightDistance(Constants.DISTANCE_TO_LANDMARK);
+		
+		//put down totes
+		Robot.elevatorControl.goTo(0);
+		
+		//back off totes
+		drive.goStaightDistance(-(Constants.TOTE_LENGTH + Constants.EXTRA_BACK_DISTANCE));
+	}
+	private void moveToNextElementSet() {
+		drive.goStaightDistance(Constants.AUTON_ELEMENT_GAP + Constants.CONTAINER_DIAMETER);
+	}
+	private void pickupTote() {
+		Robot.elevatorControl.goTo(0);
+		drive.goStaightDistance(Constants.TOTE_LENGTH);
+		Robot.elevatorControl.goTo(1);
+	}
+	private void knockContainer() {
+		Robot.knockerControl.set(true);
+		Robot.knockerControl.set(false);
 	}
 }

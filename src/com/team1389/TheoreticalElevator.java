@@ -1,5 +1,6 @@
 package com.team1389;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TheoreticalElevator extends GenericElevator {
@@ -16,6 +17,7 @@ public class TheoreticalElevator extends GenericElevator {
 		
 	@Override
 	public void goTo(int position) {
+		Timer.delay(.5);
 		this.position = position;
 		updatePositionMessage();
 	}
