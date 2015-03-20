@@ -29,22 +29,17 @@ public abstract class GenericDriver extends Component {
 		turn = new TurnPID(Robot.state.imu);
 
 
-		SmartDashboard.putNumber("100P", SmartDashboard.getNumber("100P", 0));
-		SmartDashboard.putNumber("100I", SmartDashboard.getNumber("100I", 0));
-		SmartDashboard.putNumber("100D", SmartDashboard.getNumber("100D", 0));
-		SmartDashboard.putNumber("MaxSpeed", SmartDashboard.getNumber("MaxSpeed", 0));
-		SmartDashboard.putNumber("%tolerance", SmartDashboard.getNumber("%tolerance", 0));
+//		SmartDashboard.putNumber("100P", Constants.STRAIGHT_P * 100);
+//		SmartDashboard.putNumber("100I", Constants.STRAIGHT_I * 100);
+//		SmartDashboard.putNumber("100D", Constants.STRAIGHT_D * 100);
+//		SmartDashboard.putNumber("MaxSpeed", SmartDashboard.getNumber("MaxSpeed", 0));
+//		SmartDashboard.putNumber("%tolerance", SmartDashboard.getNumber("%tolerance", 0));
 	}
 
 	@Override
 	public void autonConfig() {
 		setRampMode(GenericDriver.FULL_USER);
-		straight.setSetpoint(Robot.state.imu.getYaw());
-
-		SmartDashboard.putNumber("100P", Constants.STRAIGHT_P * 100);
-		SmartDashboard.putNumber("100I", Constants.STRAIGHT_I * 100);
-		SmartDashboard.putNumber("100D", Constants.STRAIGHT_D * 100);
-		
+		straight.setSetpoint(Robot.state.imu.getYaw());		
 		double p = SmartDashboard.getNumber("100P") / 100;
 		double i = SmartDashboard.getNumber("100I") / 100;
 		double d = SmartDashboard.getNumber("100D") / 100;
@@ -54,7 +49,7 @@ public abstract class GenericDriver extends Component {
 //		turn.getPIDController().setPercentTolerance(SmartDashboard.getNumber("%tolerance"));
 //		turn.getPIDController().setOutputRange(-maxSpeed, maxSpeed);
 		
-		straight.getPIDController().setPID(p, i, d);
+//		straight.getPIDController().setPID(p, i, d);
 //		straight.getPIDController().setPercentTolerance(SmartDashboard.getNumber("%tolerance"));
 //		straight.getPIDController().setOutputRange(-maxSpeed, maxSpeed);
 		
