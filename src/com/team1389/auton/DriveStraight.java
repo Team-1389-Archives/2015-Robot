@@ -17,6 +17,7 @@ public class DriveStraight extends PIDSubsystem{
 		this.speed = speed;
 		this.imu=imu;
 		setInputRange(-180, 180);
+		setOutputRange(-.5, .5);
 		getPIDController().setContinuous();
 	}
 

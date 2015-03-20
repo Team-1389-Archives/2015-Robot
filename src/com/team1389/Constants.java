@@ -67,6 +67,11 @@ public class Constants {
 	public static final int ENCODER_2A           = 10;
 	public static final int ENCODER_2B           = 11;
 
+	///PID VALUES
+	public static final double STRAIGHT_P = .05; //these work
+	public static final double STRAIGHT_I = .002;
+	public static final double STRAIGHT_D = 0;
+	
 	//Values
 	public static final float LIMITER            = (float) 1.42; //Approximately sqrt(2)
 	public static final float INCHES_PER_ROT     = (float) 12.5663706144;

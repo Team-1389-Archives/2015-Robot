@@ -41,6 +41,10 @@ public abstract class GenericDriver extends Component {
 		setRampMode(GenericDriver.FULL_USER);
 		straight.setSetpoint(Robot.state.imu.getYaw());
 
+		SmartDashboard.putNumber("100P", Constants.STRAIGHT_P * 100);
+		SmartDashboard.putNumber("100I", Constants.STRAIGHT_I * 100);
+		SmartDashboard.putNumber("100D", Constants.STRAIGHT_D * 100);
+		
 		double p = SmartDashboard.getNumber("100P") / 100;
 		double i = SmartDashboard.getNumber("100I") / 100;
 		double d = SmartDashboard.getNumber("100D") / 100;
@@ -49,11 +53,11 @@ public abstract class GenericDriver extends Component {
 //		turn.getPIDController().setPID(p, i, d);
 //		turn.getPIDController().setPercentTolerance(SmartDashboard.getNumber("%tolerance"));
 //		turn.getPIDController().setOutputRange(-maxSpeed, maxSpeed);
-
+		
 		straight.getPIDController().setPID(p, i, d);
-		straight.getPIDController().setPercentTolerance(SmartDashboard.getNumber("%tolerance"));
-		straight.getPIDController().setOutputRange(-maxSpeed, maxSpeed);
-
+//		straight.getPIDController().setPercentTolerance(SmartDashboard.getNumber("%tolerance"));
+//		straight.getPIDController().setOutputRange(-maxSpeed, maxSpeed);
+		
 		theoreticalAngle = Robot.state.imu.getYaw();
 	}
 
@@ -66,7 +70,7 @@ public abstract class GenericDriver extends Component {
 		tracker.start(feet);
 		float yaw = Robot.state.imu.getYaw();
 		SmartDashboard.putNumber("startYaw", yaw);
-		straight.setSetpoint(yaw);//TODO THIS SHOULD BE YAW, not Yaw-1!
+		SmartDashboard.putNumber("theoreticalAngle", theoreticalAngle);
 		straight.enable();
 		while(!tracker.isFinished() && Robot.isRobotAutonEnabled()){
 			SmartDashboard.putBoolean("wating for done with motion", true);

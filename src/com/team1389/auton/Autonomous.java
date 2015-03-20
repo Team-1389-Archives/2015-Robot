@@ -39,8 +39,6 @@ public class Autonomous {
 	{
 		drive = Robot.driveControl;
 
-		
-		autonInit();
 		switch(methodNum)
 		{
 		case 1: autonOne(); break;
@@ -53,7 +51,7 @@ public class Autonomous {
 		default: break;
 		}
 	}
-	public void autonInit(){
+	public static void autonInit(){
 		SmartDashboard.putBoolean("calibrating",true);
 		while(Robot.state.imu.isCalibrating());
 		SmartDashboard.putBoolean("calibrating",false);

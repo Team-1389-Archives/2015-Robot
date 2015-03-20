@@ -134,6 +134,8 @@ public class Robot extends SampleRobot {
 	public void autonomous(){
 
 		isAuton=true;
+		
+		Autonomous.autonInit();
 
 		for (Component c: components){
 
