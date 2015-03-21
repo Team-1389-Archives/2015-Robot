@@ -46,4 +46,8 @@ public class DriveStraight extends PIDSubsystem{
 	public void disable() {
 		super.disable();
 	}
+	
+	public void setSpeed(double speed){
+		this.speed = speed;
+	}
 }

@@ -45,9 +45,13 @@ public class Constants {
 	public static final int LF_PWM_DRIVE_TEST_BOT         = 0;
 	public static final int LB_PWM_DRIVE_TEST_BOT         = 1;
 	public static final int ELEVATOR_PWM         = 2;
+	public static final int KNOCKER_PORT = testFinalSwitch(2, -1);
 	
 	public static final int RIGHT_PWM_DRIVE_FINAL_BOT          = 0;
 	public static final int LEFT_PWM_DRIVE_FINAL_BOT           = 1;
+	
+	static final int ELEVATOR_ONE_PWM         = 2;
+	static final int ELEVATOR_TWO_PWM         = 3;
 	
 	//Joystick USB ports
 	public static final int DRIVE_JOY            = 0;
@@ -87,8 +91,19 @@ public class Constants {
 	public static final double DISTANCE_TO_LANDMARK = 8 + 11/12; //distance needed to travel from auton elements to landmark
 	public static final double EXTRA_BACK_DISTANCE = 1; //distance to be sure we are clear of tote
 	
-	public static final double driveSpeed = testFinalSwitch(.5, .4);
+	//motor speeds
+	public static final double DRIVE_SPEED = testFinalSwitch(.5, .4);
+	public static final double KNOCKER_SPEED = .1;
 	
+	//timing
+	public static final double KNOCKER_DELAY = .3;
+	
+	/**
+	 * lets options automatically switch when isTestBot is changed to true or false
+	 * @param testOption
+	 * @param finalOption
+	 * @return
+	 */
 	static <T> T testFinalSwitch(T testOption, T finalOption){
 		if (isTestBot){
 			return testOption;

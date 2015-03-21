@@ -7,20 +7,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DistanceTracker{
 	
 	Encoder encoder;
-	double endDistance;
+	double startDistance;
+	double distanceToGo;
 	
 	public DistanceTracker(Encoder encoder) {
 		this.encoder = encoder;
 	}
 	
 	public void start(double distanceToGo){
-		endDistance = encoder.getDistance() + distanceToGo;
+		startDistance = encoder.getDistance();
+		this.distanceToGo = Math.abs(distanceToGo);
 	}
 	
 	public boolean isFinished(){
-		double distanceLeft = endDistance - encoder.getDistance();
-		SmartDashboard.putNumber("distance left", distanceLeft);
-		return distanceLeft <= 0;
+		double difference = startDistance - encoder.getDistance();
+		SmartDashboard.putNumber("distance difference", difference);
+		return Math.abs(difference) >= distanceToGo;
 	}
 	
 		

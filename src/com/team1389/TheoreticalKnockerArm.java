@@ -16,10 +16,16 @@ public class TheoreticalKnockerArm extends GenericKnockerArm {
 	}
 		
 	@Override
-	public void set(boolean isExtended) {
+	public void goOut() {
 		Timer.delay(.5);
-		this.position = isExtended;
+		this.position = true;
 		updatePositionMessage();
 	}
-
+	
+	@Override
+	public void goIn() {
+		Timer.delay(.5);
+		this.position = false;
+		updatePositionMessage();
+	}
 }

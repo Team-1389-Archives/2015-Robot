@@ -24,7 +24,7 @@ public abstract class GenericDriver extends Component {
 	private double theoreticalAngle;
 
 	public GenericDriver() {
-		straight = new DriveStraight(Robot.state.imu, .4);
+		straight = new DriveStraight(Robot.state.imu, Constants.DRIVE_SPEED);
 		tracker = new DistanceTracker(Robot.state.encoder1);
 		turn = new TurnPID(Robot.state.imu);
 
@@ -40,10 +40,10 @@ public abstract class GenericDriver extends Component {
 	public void autonConfig() {
 		setRampMode(GenericDriver.FULL_USER);
 		straight.setSetpoint(Robot.state.imu.getYaw());		
-		double p = SmartDashboard.getNumber("100P") / 100;
-		double i = SmartDashboard.getNumber("100I") / 100;
-		double d = SmartDashboard.getNumber("100D") / 100;
-		double maxSpeed = SmartDashboard.getNumber("MaxSpeed");
+//		double p = SmartDashboard.getNumber("100P") / 100;
+//		double i = SmartDashboard.getNumber("100I") / 100;
+//		double d = SmartDashboard.getNumber("100D") / 100;
+//		double maxSpeed = SmartDashboard.getNumber("MaxSpeed");
 
 //		turn.getPIDController().setPID(p, i, d);
 //		turn.getPIDController().setPercentTolerance(SmartDashboard.getNumber("%tolerance"));
@@ -66,6 +66,14 @@ public abstract class GenericDriver extends Component {
 		float yaw = Robot.state.imu.getYaw();
 		SmartDashboard.putNumber("startYaw", yaw);
 		SmartDashboard.putNumber("theoreticalAngle", theoreticalAngle);
+		SmartDashboard.putNumber("feet", feet);
+		if (feet >= 0){
+			SmartDashboard.putBoolean("forward?", true);
+			straight.setSpeed(Constants.DRIVE_SPEED);
+		} else {
+			SmartDashboard.putBoolean("forward?", false);
+			straight.setSpeed(-Constants.DRIVE_SPEED);
+		}
 		straight.enable();
 		while(!tracker.isFinished() && Robot.isRobotAutonEnabled()){
 			SmartDashboard.putBoolean("wating for done with motion", true);

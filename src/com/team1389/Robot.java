@@ -35,6 +35,7 @@ public class Robot extends SampleRobot {
 	public static GenericDriver driveControl;
 	public static GenericElevator elevatorControl;
 	public static GenericKnockerArm knockerControl;
+	
 
 	public CameraServer server;
 
@@ -54,11 +55,6 @@ public class Robot extends SampleRobot {
 		//the camera name (ex "cam0") can be found through the roborio web interface
 		//server.startAutomaticCapture("cam0");
 
-		//comment following line to disable test bot driving
-
-		//uncomment following line to use final robot driving
-		//driveControl = new FinalRobotDriveControl();
-
 		if (Constants.isTestBot){
 			setupTestbotComponents();
 		} else {
@@ -66,13 +62,26 @@ public class Robot extends SampleRobot {
 		}
 		
 		commonSetup();
+		
+		dashboardSetup();
 
 	}
 	
+	private void dashboardSetup(){
+		initDashNum("AutonMode", 4);
+	}
+	
+	private void initDashNum(String key, double defaultVal){
+		SmartDashboard.putNumber(key, SmartDashboard.getNumber(key, defaultVal));
+	}
+	
 	private void commonSetup(){
+		knockerControl = new Knocker();
 		components.add(driveControl);
 		components.add(elevatorControl);
 		components.add(knockerControl);
+		
+		
 	}
 
 	private void setupFinalBotComponents(){
@@ -84,7 +93,7 @@ public class Robot extends SampleRobot {
 	private void setupTestbotComponents(){
 		driveControl = new TestBotDriveControl();
 		elevatorControl = new TheoreticalElevator();
-		knockerControl = new TheoreticalKnockerArm();
+//		knockerControl = new TheoreticalKnockerArm();
 	}
 
 
@@ -154,8 +163,8 @@ public class Robot extends SampleRobot {
 		for (Component c : components){
 			c.onAutonDisable();
 		}*/
-
-		Autonomous auto = new Autonomous(7, components);
+		
+		Autonomous auto = new Autonomous((int)SmartDashboard.getNumber("AutonMode"), components);
 	}
 
 	/**bot into auton

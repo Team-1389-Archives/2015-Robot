@@ -17,7 +17,7 @@ public class TurnPID extends PIDSubsystem{
 
 	private IMU imu;
 	public TurnPID(IMU imu){
-		super(.005, 0, 0);
+		super(.5, 0, 0);
 		this.imu=imu;
 		setInputRange(-180, 180);
 		setOutputRange(-.5, .5);
