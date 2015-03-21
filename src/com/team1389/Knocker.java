@@ -11,19 +11,19 @@ public class Knocker extends GenericKnockerArm {
 	}
 	
 	public void goOut(){
-		motor.set(Constants.KNOCKER_SPEED);
+		motor.set(Constants.OUT_KNOCKER_SPEED);
 		Timer.delay(Constants.KNOCKER_DELAY);
 		motor.set(0);
 	}
 	
 	public void goIn(){
-		motor.set(-Constants.KNOCKER_SPEED);
+		motor.set(-Constants.IN_KNOCKER_SPEED);
 		Timer.delay(Constants.KNOCKER_DELAY);
 		motor.set(0);
 	}
 	
 	@Override
 	public void teleopTick() {
-		motor.set(Robot.state.drive.getRightX() * Constants.KNOCKER_SPEED);
+		motor.set(Robot.state.drive.getRightX() * Constants.OUT_KNOCKER_SPEED);
 	}
 }

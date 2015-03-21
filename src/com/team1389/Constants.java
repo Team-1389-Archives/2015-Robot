@@ -93,10 +93,11 @@ public class Constants {
 	
 	//motor speeds
 	public static final double DRIVE_SPEED = testFinalSwitch(.5, .4);
-	public static final double KNOCKER_SPEED = .1;
+	public static final double OUT_KNOCKER_SPEED = .3;
+	public static final double IN_KNOCKER_SPEED = .7;
 	
 	//timing
-	public static final double KNOCKER_DELAY = .3;
+	public static final double KNOCKER_DELAY = .7;
 	
 	/**
 	 * lets options automatically switch when isTestBot is changed to true or false
