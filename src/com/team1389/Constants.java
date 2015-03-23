@@ -22,7 +22,7 @@ package com.team1389;
 
 public class Constants {
 	//which bot
-	public static final boolean isTestBot = true;	
+	public static final boolean IS_TEST_BOT = true;	
 	
 	//Joystick input values
 	public static final int ButtonX 			  = 3; // XBox Controller X Button number for getRawButton= or getRawAxis=
@@ -93,9 +93,13 @@ public class Constants {
 	
 	//motor speeds
 	public static final double DRIVE_SPEED = testFinalSwitch(.5, .4);
+	
 	public static final double OUT_KNOCKER_SPEED = testFinalSwitch(.2, .3);
 	public static final double IN_KNOCKER_SPEED = testFinalSwitch(.7, .7);
 	public static final double KNOCKER_HOLDING_POWER = .1;
+	
+	public static final double ELEVATOR_UP_SPEED = .5;
+	public static final double ELEVATOR_DOWN_SPEED = -.2;
 	
 	//timing
 	public static final double KNOCKER_DELAY = .7;
@@ -107,7 +111,7 @@ public class Constants {
 	 * @return
 	 */
 	static <T> T testFinalSwitch(T testOption, T finalOption){
-		if (isTestBot){
+		if (IS_TEST_BOT){
 			return testOption;
 		} else {
 			return finalOption;

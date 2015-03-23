@@ -60,7 +60,9 @@ public class SimpleElevatorControl extends GenericElevator { //WARNING: UNTESTED
 
 		if (!thereYet()){
 			if(wantedPosition == Positon.UP){
-
+				setMotors(Constants.ELEVATOR_UP_SPEED);
+			} else {
+				setMotors(Constants.ELEVATOR_DOWN_SPEED);
 			}
 		}
 		super.autonTick();

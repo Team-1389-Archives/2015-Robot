@@ -1,18 +1,27 @@
 package com.team1389;
 
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class TheoreticalElevator extends GenericElevator {
+public class TestBotElevator extends GenericElevator {
+	
+	SpeedController motor;
 	
 	private int position;
 	private int wantedPosition;
 	private long timeRequested;
-	public TheoreticalElevator() {
+	public TestBotElevator() {
+		motor = new Victor(Constants.KNOCKER_PORT);
 	
 		position = 0;
 		updatePositionMessage();
+	}
+	
+	@Override
+	public void teleopConfig() {
+		motor.set(0);
+		super.teleopConfig();
 	}
 
 	private void updatePositionMessage() {
@@ -33,15 +42,26 @@ public class TheoreticalElevator extends GenericElevator {
 	@Override
 	public void autonTick() {
 		long now = System.currentTimeMillis();
-		if (now >= timeRequested + 2000){
+		if (now >= timeRequested + 1000){
 			position = wantedPosition;
+		}
+		if(!thereYet()){
+			if (wantedPosition == 0){
+				motor.set(-.2);
+			} else if (wantedPosition == 1){
+				motor.set(.2);
+			} else {
+				throw new RuntimeException("this should never happen");
+			}
 		}
 		updatePositionMessage();
 	}
 	
 	@Override
 	public boolean thereYet() {
-		return wantedPosition == position;
+		boolean done = wantedPosition == position;
+		return done;
 	}
+
 
 }

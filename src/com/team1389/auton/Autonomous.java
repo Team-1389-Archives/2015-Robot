@@ -47,6 +47,7 @@ public class Autonomous {
 			autonName = "squareDance";
 			break;
 		case 3:
+			autonName = "testAuton";
 			break;
 		case 4:
 			autonName = "dontDoShit:";
@@ -101,7 +102,7 @@ public class Autonomous {
 		case 8:
 			testForwardBackward();
 			break;
-		default:
+		default://if you add on to this, add name to getAutonName method
 			break;
 		}
 	}
@@ -133,10 +134,8 @@ public class Autonomous {
 
 	private void testAuton(){
 		while(Robot.isRobotAutonEnabled()){
-			//			drive.turnAngle(-180);
-			//			Timer.delay(1);
-			drive.turnAngle(90);
-			Robot.autonTickForSeconds(1);
+			Robot.elevatorControl.goToAndWait(1);
+			Robot.elevatorControl.goToAndWait(0);
 		}
 	}
 
@@ -214,6 +213,9 @@ public class Autonomous {
 
 
 	private void pickupTote() {
+		//drive into tote
+		drive.goStaightDistance(Constants.TOTE_LENGTH);
+		
 		//pick up first tote
 		Robot.elevatorControl.goToAndWait(0);
 		

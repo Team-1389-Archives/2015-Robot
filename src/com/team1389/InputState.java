@@ -63,7 +63,7 @@ public class InputState implements Cloneable{
 		encoder1 = new Encoder(Constants.ENCODER_1A,Constants.ENCODER_1B);
 		encoder2 = new Encoder(Constants.ENCODER_2A,Constants.ENCODER_2B);
 		
-		if (Constants.isTestBot){
+		if (Constants.IS_TEST_BOT){
 			double dpp = .0042775; // 0.00725
 			encoder1.setDistancePerPulse(dpp);
 			encoder2.setDistancePerPulse(dpp);
