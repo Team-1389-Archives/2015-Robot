@@ -87,14 +87,13 @@ public class Robot extends SampleRobot {
 
 	private void setupFinalBotComponents(){
 		driveControl = new FinalRobotDriveControl();
-		elevatorControl = new ElevatorControl();
+		elevatorControl = new SimpleElevatorControl();
 		
 	}
 
 	private void setupTestbotComponents(){
 		driveControl = new TestBotDriveControl();
 		elevatorControl = new TheoreticalElevator();
-//		knockerControl = new TheoreticalKnockerArm();
 	}
 
 
@@ -119,20 +118,20 @@ public class Robot extends SampleRobot {
 			}
 
 
-			SmartDashboard.putNumber("X Displacment", state.imu.getDisplacementX());
-			SmartDashboard.putNumber("Y Displacment", state.imu.getDisplacementY());
-			SmartDashboard.putNumber("Compass X", state.imu.getCalibratedMagnetometerX());
-			SmartDashboard.putNumber("Compass Y", state.imu.getCalibratedMagnetometerY());
-			SmartDashboard.putNumber("Compass Z", state.imu.getCalibratedMagnetometerZ());
-			SmartDashboard.putNumber("IMU YAW", state.imu.getYaw());
-			SmartDashboard.putNumber("x velocity", state.imu.getVelocityX());
-			SmartDashboard.putNumber("y velocity", state.imu.getVelocityY());
-			SmartDashboard.putNumber("IMU acceleration x", -state.imu.getWorldLinearAccelX());
-			SmartDashboard.putNumber("IMU acceleration y", state.imu.getWorldLinearAccelY());
-			SmartDashboard.putNumber("IMU acceleration z", -state.imu.getWorldLinearAccelZ());
-			SmartDashboard.putNumber("Rio acceleration x", state.accel.getX());
-			SmartDashboard.putNumber("Rio acceleration y", state.accel.getY());
-			SmartDashboard.putNumber("Rio acceleration z", state.accel.getZ());
+//			SmartDashboard.putNumber("X Displacment", state.imu.getDisplacementX());
+//			SmartDashboard.putNumber("Y Displacment", state.imu.getDisplacementY());
+//			SmartDashboard.putNumber("Compass X", state.imu.getCalibratedMagnetometerX());
+//			SmartDashboard.putNumber("Compass Y", state.imu.getCalibratedMagnetometerY());
+//			SmartDashboard.putNumber("Compass Z", state.imu.getCalibratedMagnetometerZ());
+//			SmartDashboard.putNumber("IMU YAW", state.imu.getYaw());
+//			SmartDashboard.putNumber("x velocity", state.imu.getVelocityX());
+//			SmartDashboard.putNumber("y velocity", state.imu.getVelocityY());
+//			SmartDashboard.putNumber("IMU acceleration x", -state.imu.getWorldLinearAccelX());
+//			SmartDashboard.putNumber("IMU acceleration y", state.imu.getWorldLinearAccelY());
+//			SmartDashboard.putNumber("IMU acceleration z", -state.imu.getWorldLinearAccelZ());
+//			SmartDashboard.putNumber("Rio acceleration x", state.accel.getX());
+//			SmartDashboard.putNumber("Rio acceleration y", state.accel.getY());
+//			SmartDashboard.putNumber("Rio acceleration z", state.accel.getZ());
 			for (Component c: components){
 				c.teleopTick();
 			}
@@ -183,6 +182,7 @@ public class Robot extends SampleRobot {
 	@Override
 	protected void disabled() {
 		isAuton = false;
+		SmartDashboard.putString("ActiveAuton", Autonomous.getAutonName((int)SmartDashboard.getNumber("AutonMode")));
 	}
 	public static boolean isRobotAutonEnabled(){
 		return me.isEnabled() && me.isAutonomous();

@@ -47,17 +47,17 @@ public class FinalRobotDriveControl extends GenericDriver{
 		double rightPower=(y - x) / Constants.LIMITER * -1;
 
 		if(rampUpState==COMPUTER_ASSISTED){
-			SmartDashboard.putString("mode", "computer assisted");
+			SmartDashboard.putString("rampup mode", "computer assisted");
 			actualLeft=AssistedPowerControl(leftPower,actualLeft);
 			actualRight=AssistedPowerControl(rightPower,actualRight);
 		}
 		else if(rampUpState==STRICT_COMPUTER){
-			SmartDashboard.putString("mode", "Strict Computer");
+			SmartDashboard.putString("rampup mode", "Strict Computer");
 			actualLeft=PowerControl(leftPower,actualLeft);
 			actualRight=PowerControl(rightPower,actualRight);
 		}
 		else{
-			SmartDashboard.putString("mode", "user");
+			SmartDashboard.putString("rampup mode", "user");
 			actualLeft=leftPower;
 			actualRight=rightPower;
 		}

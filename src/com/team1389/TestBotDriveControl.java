@@ -34,7 +34,6 @@ public class TestBotDriveControl extends GenericDriver{
 
 	public void drive(double x,double y){
 		SmartDashboard.putNumber("rampup mode", rampUpState);
-		SmartDashboard.putNumber("imu yaw", Robot.state.imu.getYaw());
 		double leftPower=(y + x) / Constants.LIMITER;
 		double rightPower=(y - x) / Constants.LIMITER * -1;
 

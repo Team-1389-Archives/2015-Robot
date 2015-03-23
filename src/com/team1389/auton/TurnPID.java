@@ -30,15 +30,11 @@ public class TurnPID extends PIDSubsystem{
 	@Override
 	protected double returnPIDInput(){
 		float pidOutput = imu.getYaw();
-		SmartDashboard.putNumber("startAngle" , startAngle);
-		SmartDashboard.putNumber("endAngle", setPoint);
-		SmartDashboard.putNumber("difference", setPoint - startAngle);
 		return pidOutput;
 	}
 
 	@Override
 	protected void usePIDOutput(double output) {
-		SmartDashboard.putNumber("output", output);
 
 		lastOutput = output;
 

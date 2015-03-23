@@ -24,13 +24,11 @@ public class DriveStraight extends PIDSubsystem{
 	@Override
 	protected double returnPIDInput(){
 		float pidOutput = imu.getYaw();
-		SmartDashboard.putNumber("PidReadOutput", pidOutput);
 		return pidOutput;
 	}
 
 	@Override
 	protected void usePIDOutput(double output) {
-		SmartDashboard.putNumber("output", output);
 //		Robot.left1.set(leftModifyer * speed + output);
 //		Robot.left2.set(leftModifyer * speed + output);
 //		Robot.right1.set(rightModifyer * speed + output); 

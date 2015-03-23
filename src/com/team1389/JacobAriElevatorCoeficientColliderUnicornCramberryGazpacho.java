@@ -34,21 +34,14 @@ public class JacobAriElevatorCoeficientColliderUnicornCramberryGazpacho extends 
 		switch(move()){
 		case UP:
 			goUp();
-			SmartDashboard.putString("intended direction", "UP");
 			break;
 		case DOWN:
 			goDown();
-			SmartDashboard.putString("intended direction", "DOWN");
 			break;
 		case STOP:
 			stop();
-			SmartDashboard.putString("intended direction", "STOP");
 			break;
 		}
-				
-		SmartDashboard.putNumber("last seen", lastSeenWorstGuess);
-		SmartDashboard.putBoolean("isTouching", isTouching);
-		SmartDashboard.putNumber("wanted", wanted);
 	}
 	
 	private void updateSensors(){
@@ -101,7 +94,6 @@ public class JacobAriElevatorCoeficientColliderUnicornCramberryGazpacho extends 
 	}
 
 	private void setMotors(double speed){
-		SmartDashboard.putNumber("elevator power", speed);
 		liftOne.set(speed * Constants.ELEVATOR_SPEED_MOD * -1);
 		liftTwo.set(speed * Constants.ELEVATOR_SPEED_MOD);
 	}

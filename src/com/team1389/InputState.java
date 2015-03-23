@@ -37,6 +37,7 @@ public class InputState implements Cloneable{
 	
 	public DigitalInput[] infared;
 	public DigitalInput contactSensor;
+	public DigitalInput bottomInfared;
 	
 	public InputState(){
 		
@@ -82,6 +83,8 @@ public class InputState implements Cloneable{
 		infared[3]= new DigitalInput(Constants.INFRARED_FOUR);
 		infared[4]= new DigitalInput(Constants.INFRARED_FIVE);
 		contactSensor = new DigitalInput(Constants.CONTACT_SENSE);
+		
+		bottomInfared = infared[0]; //may need to change this
 	}
 	
 	public void tick() {

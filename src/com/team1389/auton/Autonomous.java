@@ -37,6 +37,38 @@ public class Autonomous {
 
 	private GenericDriver drive;
 
+	public static String getAutonName(int number){
+		String autonName = null;
+		switch (number) {
+		case 1:
+			autonName = "autonOne";
+			break;
+		case 2:
+			autonName = "squareDance";
+			break;
+		case 3:
+			break;
+		case 4:
+			autonName = "dontDoShit:";
+			break;
+		case 5:
+			autonName = "zigZag";
+			break;
+		case 6:
+			break;
+		case 7:
+			autonName = "threeTotes";
+			break;
+		case 8:
+			autonName = "testForwardBackward";
+			break;
+		default:
+			autonName = "INVALID AUTON NUMBER";
+		}
+		
+		return autonName;
+	}
+	
 	public Autonomous(int methodNum,ArrayList<Component> components)
 	{
 		drive = Robot.driveControl;
@@ -47,41 +79,31 @@ public class Autonomous {
 
 		case 1:
 			autonOne();
-			autonName = "autonOne";
 			break;
 		case 2:
 			squareDance();
-			autonName = "squareDance";
 			break;
 		case 3:
 			testAuton();
-			autonName = "testAuton";
 			break;
 		case 4:
 			dontDoShit();
-			autonName = "dontDoShit:";
 			break;
 		case 5:
 			zigZag();
-			autonName = "zigZag";
 			break;
 		case 6:
 			t20Feet();
-			autonName = "t20Feet";
 			break;
 		case 7:
 			threeTotes();
-			autonName = "threeTotes";
 			break;
 		case 8:
 			testForwardBackward();
-			autonName = "testForwardBackward";
 			break;
 		default:
 			break;
 		}
-		
-		SmartDashboard.putString("ActiveAuton", autonName);
 	}
 
 

@@ -21,7 +21,6 @@ public class DistanceTracker{
 	
 	public boolean isFinished(){
 		double difference = startDistance - encoder.getDistance();
-		SmartDashboard.putNumber("distance difference", difference);
 		return Math.abs(difference) >= distanceToGo;
 	}
 	

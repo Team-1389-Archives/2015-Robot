@@ -69,22 +69,15 @@ public abstract class GenericDriver extends Component {
 	public void goStaightDistance(double feet){
 		tracker.start(feet);
 		float yaw = Robot.state.imu.getYaw();
-		SmartDashboard.putNumber("startYaw", yaw);
-		SmartDashboard.putNumber("theoreticalAngle", theoreticalAngle);
-		SmartDashboard.putNumber("feet", feet);
 		if (feet >= 0){
-			SmartDashboard.putBoolean("forward?", true);
 			straight.setSpeed(Constants.DRIVE_SPEED);
 		} else {
-			SmartDashboard.putBoolean("forward?", false);
 			straight.setSpeed(-Constants.DRIVE_SPEED);
 		}
 		straight.enable();
 		while(!tracker.isFinished() && Robot.isRobotAutonEnabled()){
-			SmartDashboard.putBoolean("wating for done with motion", true);
 			Robot.autonTickForSeconds(.05);
 		}
-		SmartDashboard.putBoolean("wating for done with motion", false);
 		straight.disable();
 		drive(0,0);
 	}

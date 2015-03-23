@@ -26,10 +26,8 @@ public class ElevatorControl extends GenericElevator{
 		if (isB && goToPosition != 0){
 			goToPosition -= 1;
 		}
-		SmartDashboard.putNumber("pos",goToPosition);
 		DigitalInput[] sensors= Robot.state.infared;
 		if(!going)goTo(goToPosition);
-		SmartDashboard.putBoolean("IR One value", Robot.state.infared[0].get());
 	}
 	
 	public void autonTick(){
