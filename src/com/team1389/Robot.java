@@ -6,6 +6,7 @@ import com.team1389.auton.Autonomous;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.SampleRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -185,6 +186,21 @@ public class Robot extends SampleRobot {
 	}
 	public static boolean isRobotAutonEnabled(){
 		return me.isEnabled() && me.isAutonomous();
+	}
+	
+	public static void doAutonTick(){
+		state.tick();
+		for (Component c : components){
+			c.autonTick();
+		}
+	}
+	
+	public static void autonTickForSeconds(double seconds){
+		Timer t = new Timer();
+		t.start();
+		while(!(t.hasPeriodPassed(seconds)) && isRobotAutonEnabled()){
+			doAutonTick();
+		}
 	}
 
 }

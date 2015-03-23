@@ -17,7 +17,7 @@ public class TheoreticalElevator extends GenericElevator {
 		
 	@Override
 	public void goTo(int position) {
-		Timer.delay(.5);
+		Robot.autonTickForSeconds(.5);
 		this.position = position;
 		updatePositionMessage();
 	}

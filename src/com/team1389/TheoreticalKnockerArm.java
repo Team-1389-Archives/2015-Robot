@@ -17,14 +17,14 @@ public class TheoreticalKnockerArm extends GenericKnockerArm {
 		
 	@Override
 	public void goOut() {
-		Timer.delay(.5);
+		Robot.autonTickForSeconds(.5);
 		this.position = true;
 		updatePositionMessage();
 	}
 	
 	@Override
 	public void goIn() {
-		Timer.delay(.5);
+		Robot.autonTickForSeconds(.5);
 		this.position = false;
 		updatePositionMessage();
 	}

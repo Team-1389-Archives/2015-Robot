@@ -29,36 +29,36 @@ public abstract class GenericDriver extends Component {
 		turn = new TurnPID(Robot.state.imu);
 
 
-//		SmartDashboard.putNumber("100P", Constants.STRAIGHT_P * 100);
-//		SmartDashboard.putNumber("100I", Constants.STRAIGHT_I * 100);
-//		SmartDashboard.putNumber("100D", Constants.STRAIGHT_D * 100);
-//		SmartDashboard.putNumber("MaxSpeed", SmartDashboard.getNumber("MaxSpeed", 0));
-//		SmartDashboard.putNumber("%tolerance", SmartDashboard.getNumber("%tolerance", 0));
+		//		SmartDashboard.putNumber("100P", Constants.STRAIGHT_P * 100);
+		//		SmartDashboard.putNumber("100I", Constants.STRAIGHT_I * 100);
+		//		SmartDashboard.putNumber("100D", Constants.STRAIGHT_D * 100);
+		//		SmartDashboard.putNumber("MaxSpeed", SmartDashboard.getNumber("MaxSpeed", 0));
+		//		SmartDashboard.putNumber("%tolerance", SmartDashboard.getNumber("%tolerance", 0));
 	}
 
 	@Override
 	public void autonConfig() {
 		setRampMode(GenericDriver.FULL_USER);
 		straight.setSetpoint(Robot.state.imu.getYaw());		
-//		double p = SmartDashboard.getNumber("100P") / 100;
-//		double i = SmartDashboard.getNumber("100I") / 100;
-//		double d = SmartDashboard.getNumber("100D") / 100;
-//		double maxSpeed = SmartDashboard.getNumber("MaxSpeed");
+		//		double p = SmartDashboard.getNumber("100P") / 100;
+		//		double i = SmartDashboard.getNumber("100I") / 100;
+		//		double d = SmartDashboard.getNumber("100D") / 100;
+		//		double maxSpeed = SmartDashboard.getNumber("MaxSpeed");
 
-//		turn.getPIDController().setPID(p, i, d);
-//		turn.getPIDController().setPercentTolerance(SmartDashboard.getNumber("%tolerance"));
-//		turn.getPIDController().setOutputRange(-maxSpeed, maxSpeed);
-		
-//		straight.getPIDController().setPID(p, i, d);
-//		straight.getPIDController().setPercentTolerance(SmartDashboard.getNumber("%tolerance"));
-//		straight.getPIDController().setOutputRange(-maxSpeed, maxSpeed);
-		
+		//		turn.getPIDController().setPID(p, i, d);
+		//		turn.getPIDController().setPercentTolerance(SmartDashboard.getNumber("%tolerance"));
+		//		turn.getPIDController().setOutputRange(-maxSpeed, maxSpeed);
+
+		//		straight.getPIDController().setPID(p, i, d);
+		//		straight.getPIDController().setPercentTolerance(SmartDashboard.getNumber("%tolerance"));
+		//		straight.getPIDController().setOutputRange(-maxSpeed, maxSpeed);
+
 		theoreticalAngle = Robot.state.imu.getYaw();
 	}
 
+
 	@Override
 	public void autonTick() {
-
 	}
 
 	public void goStaightDistance(double feet){
@@ -77,7 +77,7 @@ public abstract class GenericDriver extends Component {
 		straight.enable();
 		while(!tracker.isFinished() && Robot.isRobotAutonEnabled()){
 			SmartDashboard.putBoolean("wating for done with motion", true);
-			Timer.delay(.05);
+			Robot.autonTickForSeconds(.05);
 		}
 		SmartDashboard.putBoolean("wating for done with motion", false);
 		straight.disable();
@@ -95,40 +95,40 @@ public abstract class GenericDriver extends Component {
 		turn.setSetpoint(theoreticalAngle);
 		turn.enable();
 		while(!turn.onTarget() && Robot.isRobotAutonEnabled()){
-			Timer.delay(.05);
+			Robot.autonTickForSeconds(.05);
 		}
 		turn.disable();
 		drive(0,0);
 	}
 
-//	public void turnAngle(double angle){
-//		theoreticalAngle += angle;
-//		if (theoreticalAngle > 180){
-//			theoreticalAngle -= 360;
-//		} else if (theoreticalAngle < -180) {
-//			theoreticalAngle += 360;
-//		}
-//
-//		double rawSpeed = SmartDashboard.getDouble("MaxSpeed");
-//		double speed;
-//
-//		boolean goAngleUp = angle > 0;
-//		if (goAngleUp){
-//			speed = rawSpeed;
-//
-//		} else {
-//			speed = -rawSpeed;
-//		}
-//
-//		drive(speed,0);
-//		float yaw = Robot.state.imu.getYaw();
-//		while( thereYet(theoreticalAngle, yaw, goAngleUp) && Robot.isRobotAutonEnabled()){
-//			SmartDashboard.putNumber("angle left", angleDifference(theoreticalAngle, yaw));
-//			Timer.delay(.05);
-//			yaw = Robot.state.imu.getYaw();
-//		}
-//		drive(0,0);
-//	}
+	//	public void turnAngle(double angle){
+	//		theoreticalAngle += angle;
+	//		if (theoreticalAngle > 180){
+	//			theoreticalAngle -= 360;
+	//		} else if (theoreticalAngle < -180) {
+	//			theoreticalAngle += 360;
+	//		}
+	//
+	//		double rawSpeed = SmartDashboard.getDouble("MaxSpeed");
+	//		double speed;
+	//
+	//		boolean goAngleUp = angle > 0;
+	//		if (goAngleUp){
+	//			speed = rawSpeed;
+	//
+	//		} else {
+	//			speed = -rawSpeed;
+	//		}
+	//
+	//		drive(speed,0);
+	//		float yaw = Robot.state.imu.getYaw();
+	//		while( thereYet(theoreticalAngle, yaw, goAngleUp) && Robot.isRobotAutonEnabled()){
+	//			SmartDashboard.putNumber("angle left", angleDifference(theoreticalAngle, yaw));
+	//			Timer.delay(.05);
+	//			yaw = Robot.state.imu.getYaw();
+	//		}
+	//		drive(0,0);
+	//	}
 
 	private double angleDifference(double a, double b){
 		double adjustedA;

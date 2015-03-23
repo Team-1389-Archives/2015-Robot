@@ -1,7 +1,6 @@
 package com.team1389;
 
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 
 public class Knocker extends GenericKnockerArm {
@@ -12,13 +11,13 @@ public class Knocker extends GenericKnockerArm {
 	
 	public void goOut(){
 		motor.set(Constants.OUT_KNOCKER_SPEED);
-		Timer.delay(Constants.KNOCKER_DELAY);
+		Robot.autonTickForSeconds(Constants.KNOCKER_DELAY);
 		motor.set(0);
 	}
 	
 	public void goIn(){
 		motor.set(-Constants.IN_KNOCKER_SPEED);
-		Timer.delay(Constants.KNOCKER_DELAY);
+		Robot.autonTickForSeconds(Constants.KNOCKER_DELAY);
 		motor.set(0);
 	}
 	

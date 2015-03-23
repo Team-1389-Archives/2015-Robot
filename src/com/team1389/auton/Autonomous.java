@@ -87,7 +87,7 @@ public class Autonomous {
 
 	public static void autonInit(){
 		SmartDashboard.putBoolean("calibrating",true);
-		while(Robot.state.imu.isCalibrating());
+		while(Robot.state.imu.isCalibrating() && Robot.isRobotAutonEnabled());
 		SmartDashboard.putBoolean("calibrating",false);
 		Robot.state.imu.resetDisplacement();
 		Robot.state.imu.zeroYaw();
@@ -103,9 +103,9 @@ public class Autonomous {
 	private void squareDance(){
 		while(Robot.isRobotAutonEnabled()){
 			drive.goStaightDistance(2);
-			Timer.delay(1);
+			Robot.autonTickForSeconds(1);
 			drive.turnAngle(90);
-			Timer.delay(1);
+			Robot.autonTickForSeconds(1);
 		}
 	}
 
@@ -114,7 +114,7 @@ public class Autonomous {
 			//			drive.turnAngle(-180);
 			//			Timer.delay(1);
 			drive.turnAngle(90);
-			Timer.delay(1);
+			Robot.autonTickForSeconds(1);
 		}
 	}
 
@@ -126,13 +126,13 @@ public class Autonomous {
 		drive.turnAngle(-45);
 		while(Robot.isRobotAutonEnabled()){
 			drive.turnAngle(90);
-			Timer.delay(1);
+			Robot.autonTickForSeconds(1);
 			drive.goStaightDistance(2);
-			Timer.delay(1);
+			Robot.autonTickForSeconds(1);
 			drive.turnAngle(-90);
-			Timer.delay(1);
+			Robot.autonTickForSeconds(1);
 			drive.goStaightDistance(2);
-			Timer.delay(1);
+			Robot.autonTickForSeconds(1);
 		}
 
 	}
