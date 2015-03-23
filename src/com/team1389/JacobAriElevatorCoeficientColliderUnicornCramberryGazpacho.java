@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class JacobAriElevatorCoeficientColliderUnicornCramberryGazpacho extends Component{
+public class JacobAriElevatorCoeficientColliderUnicornCramberryGazpacho extends GenericElevator{
 	Victor liftOne;
 	Victor liftTwo;
 		
@@ -124,5 +124,13 @@ public class JacobAriElevatorCoeficientColliderUnicornCramberryGazpacho extends 
 			power = 0.0f;
 		}
 		return power;
+	}
+	@Override
+	public void goTo(int position) {
+		wanted = position;
+	}
+	@Override
+	public boolean thereYet() {
+		return move() == Movement.STOP;
 	}
 }

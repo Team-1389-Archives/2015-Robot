@@ -93,8 +93,9 @@ public class Constants {
 	
 	//motor speeds
 	public static final double DRIVE_SPEED = testFinalSwitch(.5, .4);
-	public static final double OUT_KNOCKER_SPEED = .3;
-	public static final double IN_KNOCKER_SPEED = .7;
+	public static final double OUT_KNOCKER_SPEED = testFinalSwitch(.2, .3);
+	public static final double IN_KNOCKER_SPEED = testFinalSwitch(.7, .7);
+	public static final double KNOCKER_HOLDING_POWER = .1;
 	
 	//timing
 	public static final double KNOCKER_DELAY = .7;

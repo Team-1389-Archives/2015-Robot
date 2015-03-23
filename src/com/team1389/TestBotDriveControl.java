@@ -133,7 +133,9 @@ public class TestBotDriveControl extends GenericDriver{
 	
 
 	@Override
-	public void teleopConfig(){}
+	public void teleopConfig(){
+		super.teleopConfig();
+	}
 
 	/**
 	 * Teleoperated control for the drive train

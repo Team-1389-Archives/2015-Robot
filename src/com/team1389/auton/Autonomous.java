@@ -149,32 +149,16 @@ public class Autonomous {
 	}
 
 	private void threeTotes(){
-		//start with elevator up
-		Robot.elevatorControl.goTo(1);
+		doToteContainerSet();
 
-		//pick up first tote
+		doToteContainerSet();
+		
 		pickupTote();
-
-		//knock container 1
-		knockContainer();
-
-		//go to second element set
-		moveToNextElementSet();
-
-		//pickup second tote
-		pickupTote();
-
-		//knock second container
-		knockContainer();
-
-		//go to third element set
-		moveToNextElementSet();
-
-		//pickup third tote
-		pickupTote();
-
+		
 		//grab tote
 		Robot.knockerControl.goIn();
+		//hold on through turn
+		Robot.knockerControl.setPowerDirectly(Constants.KNOCKER_HOLDING_POWER);
 
 		//turn to auto zone
 		drive.turnAngle(90);
@@ -186,18 +170,39 @@ public class Autonomous {
 		Robot.elevatorControl.goTo(0);
 
 		//release totes
-		Robot.knockerControl.goIn();
+		Robot.knockerControl.goOut();
 
 		//back off totes
 		drive.goStaightDistance(-(Constants.TOTE_LENGTH + Constants.EXTRA_BACK_DISTANCE));
 	}
+
+
+	private void doToteContainerSet() {
+		//start with elevator up
+		Robot.elevatorControl.goToAndWait(1);
+		
+		pickupTote();
+
+		//knock container 1
+		knockContainer();
+
+		//go to second element set
+		moveToNextElementSet();
+	}
+
+
+	private void pickupTote() {
+		//pick up first tote
+		Robot.elevatorControl.goToAndWait(0);
+		
+		//move into first tote
+		drive.goStaightDistance(Constants.TOTE_LENGTH);
+
+		//start elevator down on tote
+		Robot.elevatorControl.goTo(1);
+	}
 	private void moveToNextElementSet() {
 		drive.goStaightDistance(Constants.AUTON_ELEMENT_GAP + Constants.CONTAINER_DIAMETER);
-	}
-	private void pickupTote() {
-		Robot.elevatorControl.goTo(0);
-		drive.goStaightDistance(Constants.TOTE_LENGTH);
-		Robot.elevatorControl.goTo(1);
 	}
 	private void knockContainer() {
 		Robot.knockerControl.goIn();

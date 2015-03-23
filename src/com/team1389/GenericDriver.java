@@ -35,6 +35,11 @@ public abstract class GenericDriver extends Component {
 		//		SmartDashboard.putNumber("MaxSpeed", SmartDashboard.getNumber("MaxSpeed", 0));
 		//		SmartDashboard.putNumber("%tolerance", SmartDashboard.getNumber("%tolerance", 0));
 	}
+	
+	@Override
+	public void teleopConfig() {
+		setRampMode(GenericDriver.FULL_USER);
+	}
 
 	@Override
 	public void autonConfig() {

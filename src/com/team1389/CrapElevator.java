@@ -19,4 +19,9 @@ public class CrapElevator extends GenericElevator{
 		throw new RuntimeException("this is a crap elevator, not able to move to a specific location");
 	}
 	
+	@Override
+	public boolean thereYet() {
+		throw new RuntimeException("this is a crap elevator, not able to move to a specific location");
+	}
+	
 }

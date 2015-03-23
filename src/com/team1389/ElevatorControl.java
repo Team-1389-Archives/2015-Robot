@@ -93,5 +93,8 @@ public class ElevatorControl extends GenericElevator{
 		}
 	}	
 	
-	
+	@Override
+	public boolean thereYet() {
+		throw new RuntimeException("not implemented for this elevator");
+	}
 }

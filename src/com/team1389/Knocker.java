@@ -25,4 +25,9 @@ public class Knocker extends GenericKnockerArm {
 	public void teleopTick() {
 		motor.set(Robot.state.drive.getRightX() * Constants.OUT_KNOCKER_SPEED);
 	}
+
+	@Override
+	public void setPowerDirectly(double power) {
+		motor.set(power);
+	}
 }

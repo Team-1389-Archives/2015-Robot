@@ -12,7 +12,7 @@ public class TheoreticalKnockerArm extends GenericKnockerArm {
 	}
 
 	private void updatePositionMessage() {
-		SmartDashboard.putBoolean("Theoretical Knocker Position:", position);
+		SmartDashboard.putString("Theoretical Knocker Position:", position?"up":"down");
 	}
 		
 	@Override
@@ -27,5 +27,10 @@ public class TheoreticalKnockerArm extends GenericKnockerArm {
 		Robot.autonTickForSeconds(.5);
 		this.position = false;
 		updatePositionMessage();
+	}
+
+	@Override
+	public void setPowerDirectly(double power) {
+		SmartDashboard.putString("Theoretical Knocker Position:", "power directly set to: " + power);
 	}
 }
