@@ -22,46 +22,25 @@ public class Autonomous {
 
 	//These constants hold relevant distances we need to travel in inches
 
-	private final double 
-	MULTIPLIER=					0.0254,					//inches->meters conversion
-	TAPE_TO_LANDMARK = 			107		*MULTIPLIER, 	//Distance from in front of AutoTotes -> AutoZone.
-	STAGING_ZONE_WIDTH=			48		*MULTIPLIER,	//length down the field of yellow crate zone
-	STAGING_ZONE_LENGTH=		23		*MULTIPLIER,	//width of yellow crate zone
-	BETW_AUTO_TOTES = 			33		*MULTIPLIER, 	//Distance to travel in between auto totes when picking up all totes
-	TAPE_TO_DRIVER = 			76		*MULTIPLIER, 	//Distance to from down-field edge of staging zone to driver station
-	TOTE_WIDTH = 				26.9	*MULTIPLIER, 	//width of a tote
-	LANDFILL_TO_SCORING = 		51.2	*MULTIPLIER, 	//distance from two totes in landfill to white scoring platform
-	LANDFILL_TO_AUTON = 		54.5	*MULTIPLIER, 	//distance from white scoring platform to middle of auton zone
-	AUTONTOTE_TO_LANDFILLTOTE = 12		*MULTIPLIER, 	//offset from auton tote to landfill totes
-	OVERHANG = 					13.5	*MULTIPLIER; 	//distance past chassis of lift arm	
-
 	private GenericDriver drive;
 
 	public static String getAutonName(int number){
 		String autonName = null;
 		switch (number) {
 		case 1:
-			autonName = "autonOne";
+			autonName = "driveToAutonZone";
 			break;
 		case 2:
-			autonName = "squareDance";
+			autonName = "pushToteToAutoZone";
 			break;
 		case 3:
-			autonName = "testAuton";
+			autonName = "pickupToteAndToAutoZone";
 			break;
 		case 4:
-			autonName = "dontDoShit:";
+			autonName = "threeTotes:";
 			break;
 		case 5:
-			autonName = "zigZag";
-			break;
-		case 6:
-			break;
-		case 7:
-			autonName = "threeTotes";
-			break;
-		case 8:
-			autonName = "testForwardBackward";
+			autonName = "doNothing";
 			break;
 		default:
 			autonName = "INVALID AUTON NUMBER";
@@ -79,28 +58,19 @@ public class Autonomous {
 		switch (methodNum) {
 
 		case 1:
-			autonOne();
+			driveToAutonZone();
 			break;
 		case 2:
-			squareDance();
+			pushToteToAutoZone();
 			break;
 		case 3:
-			testAuton();
+			pickupToteAndToAutoZone();
 			break;
 		case 4:
-			dontDoShit();
-			break;
-		case 5:
-			zigZag();
-			break;
-		case 6:
-			t20Feet();
-			break;
-		case 7:
 			threeTotes();
 			break;
-		case 8:
-			testForwardBackward();
+		case 5:
+			doNothing();
 			break;
 		default://if you add on to this, add name to getAutonName method
 			break;
@@ -116,59 +86,27 @@ public class Autonomous {
 		Robot.state.imu.zeroYaw();
 		//Timer.delay(5);
 	}
-
-
-	private void autonOne(){
-		drive.goStaightDistance(SmartDashboard.getNumber("autonDistance"));
+	
+	//auton 1
+	private void driveToAutonZone(){
+		drive.goStaightDistance(Constants.DISTANCE_TO_LANDMARK);
+	}
+	
+	//auton2
+	private void pushToteToAutoZone(){
+		drive.goStaightDistance(Constants.DISTANCE_TO_LANDMARK + Constants.STAGING_TO_AUTO_ZONE);
+	}
+	
+	//auton 3
+	private void pickupToteAndToAutoZone(){
+		Robot.elevatorControl.goToAndWait(1);
+		drive.goStaightDistance(Constants.TOTE_LENGTH);
 		drive.turnAngle(90);
+		drive.goStaightDistance(Constants.DISTANCE_TO_LANDMARK + Constants.STAGING_TO_AUTO_ZONE);
 	}
+	
 
-	private void squareDance(){
-		while(Robot.isRobotAutonEnabled()){
-			drive.goStaightDistance(2);
-			Robot.autonTickForSeconds(1);
-			drive.turnAngle(90);
-			Robot.autonTickForSeconds(1);
-		}
-	}
-
-	private void testAuton(){
-		while(Robot.isRobotAutonEnabled()){
-			Robot.elevatorControl.goToAndWait(1);
-			Robot.elevatorControl.goToAndWait(0);
-		}
-	}
-
-	private void dontDoShit(){
-
-	}
-
-	private void zigZag(){
-		drive.turnAngle(-45);
-		while(Robot.isRobotAutonEnabled()){
-			drive.turnAngle(90);
-			Robot.autonTickForSeconds(1);
-			drive.goStaightDistance(2);
-			Robot.autonTickForSeconds(1);
-			drive.turnAngle(-90);
-			Robot.autonTickForSeconds(1);
-			drive.goStaightDistance(2);
-			Robot.autonTickForSeconds(1);
-		}
-
-	}
-
-	private void t20Feet(){
-		drive.goStaightDistance(20);
-	}
-
-	private void testForwardBackward(){
-		while(Robot.isRobotAutonEnabled()){
-			drive.goStaightDistance(2);
-			drive.goStaightDistance(-2);
-		}
-	}
-
+	//auton 4
 	private void threeTotes(){
 		doToteContainerSet();
 
@@ -231,5 +169,60 @@ public class Autonomous {
 	private void knockContainer() {
 		Robot.knockerControl.goIn();
 		Robot.knockerControl.goOut();
+	}
+	
+	private void doNothing(){
+
+	}
+	
+	
+	//tests autons
+	
+	
+	private void autonOne(){
+		drive.goStaightDistance(SmartDashboard.getNumber("autonDistance"));
+		drive.turnAngle(90);
+	}
+
+	private void squareDance(){
+		while(Robot.isRobotAutonEnabled()){
+			drive.goStaightDistance(2);
+			Robot.autonTickForSeconds(1);
+			drive.turnAngle(90);
+			Robot.autonTickForSeconds(1);
+		}
+	}
+
+	private void testAuton(){
+		while(Robot.isRobotAutonEnabled()){
+			Robot.elevatorControl.goToAndWait(1);
+			Robot.elevatorControl.goToAndWait(0);
+		}
+	}
+
+	private void zigZag(){
+		drive.turnAngle(-45);
+		while(Robot.isRobotAutonEnabled()){
+			drive.turnAngle(90);
+			Robot.autonTickForSeconds(1);
+			drive.goStaightDistance(2);
+			Robot.autonTickForSeconds(1);
+			drive.turnAngle(-90);
+			Robot.autonTickForSeconds(1);
+			drive.goStaightDistance(2);
+			Robot.autonTickForSeconds(1);
+		}
+
+	}
+
+	private void t20Feet(){
+		drive.goStaightDistance(20);
+	}
+
+	private void testForwardBackward(){
+		while(Robot.isRobotAutonEnabled()){
+			drive.goStaightDistance(2);
+			drive.goStaightDistance(-2);
+		}
 	}
 }

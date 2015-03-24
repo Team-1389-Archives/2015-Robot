@@ -1,0 +1,52 @@
+<xml version="1.0">
+<dashboard>
+	<widget field="cameraException" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="2" y="375"/>
+		<height>20</height>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.WebcamViewerExtension">
+		<location x="9" y="75"/>
+		<height>243</height>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="32" y="241"/>
+		<width>424</width>
+		<height>56</height>
+		<property name="Text" value="Auton List: 1:driveToAutonZone; 2:pushToteToAutonZone; 3:pickupToteAndToAutonZone;  4:threeTotes; 5:doNothing"/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="1" y="325"/>
+		<height>22</height>
+		<property name="Text" value="Debugging things"/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="311" y="85"/>
+		<property name="Text" value="Set this number to select Auton mode^^^"/>
+	</static-widget>
+	<widget field="ActiveAuton" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="289" y="100"/>
+		<width>208</width>
+		<height>66</height>
+	</widget>
+	<widget field="calibrating" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="344"/>
+	</widget>
+	<widget field="AutonMode" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="277" y="8"/>
+		<width>228</width>
+		<height>81</height>
+	</widget>
+	<widget field="Theoretical Elevator Position:" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="359"/>
+		<height>20</height>
+	</widget>
+	<widget field="rampup mode" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1" y="20"/>
+	</widget>
+	<widget field="Theoretical Knocker Position:" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="4" y="395"/>
+	</widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>

@@ -90,6 +90,7 @@ public class Constants {
 	public static final double AUTON_ELEMENT_GAP = 2 + 9/12; //gap between tote+container pairs in auton setup
 	public static final double DISTANCE_TO_LANDMARK = 8 + 11/12; //distance needed to travel from auton elements to landmark
 	public static final double EXTRA_BACK_DISTANCE = 1; //distance to be sure we are clear of tote
+	public static final double STAGING_TO_AUTO_ZONE = 4;//check this one
 	
 	//motor speeds
 	public static final double DRIVE_SPEED = testFinalSwitch(.5, .4);
