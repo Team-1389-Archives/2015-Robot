@@ -2,6 +2,7 @@ package com.team1389;
 
 import java.util.ArrayList;
 
+
 import com.team1389.auton.Autonomous;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -51,10 +52,14 @@ public class Robot extends SampleRobot {
 		components = new ArrayList<Component>();
 
 
-		//server = CameraServer.getInstance();
-		//server.setQuality(50);
-		//the camera name (ex "cam0") can be found through the roborio web interface
-		//server.startAutomaticCapture("cam0");
+		try{// go to http://10.13.89.21/ in browser to get camera number
+			server = CameraServer.getInstance();
+			server.setQuality(50);
+			//the camera name (ex "cam0") can be found through the roborio web interface
+			server.startAutomaticCapture("cam1");
+		} catch (Exception e){
+			SmartDashboard.putString("cameraException", e.getMessage());
+		}
 
 		if (Constants.IS_TEST_BOT){
 			setupTestbotComponents();
